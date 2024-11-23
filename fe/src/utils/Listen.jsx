@@ -38,17 +38,10 @@ const Listen = ({ setDecibel }) => {
         if (transcript.length >= 5) {
 
 
-            if (transcript.includes('picture of')) {
+            if (transcript.includes('picture of') || transcript.includes('image of')) {
                 let img = transcript.split('picture of')[1];
                 Actions.handleImage();
                 console.log('Taking picture... of', img);
-                let imageUrl = await getImageUrl(img);
-                console.log('Image URL:', imageUrl['image']);
-                setImageUrl(imageUrl['image']);
-            } else if (transcript.includes('image')){
-                let img = transcript.split('picture of')[1];
-                Actions.handleImage();
-                console.log('Showing Image...', img);
                 let imageUrl = await getImageUrl(img);
                 console.log('Image URL:', imageUrl['image']);
                 setImageUrl(imageUrl['image']);
@@ -72,9 +65,12 @@ const Listen = ({ setDecibel }) => {
                 reply = "SPINNING AROUND AND AROUUUDADADADADAAAAAAA I'M GETTING DIZZY!";
             }
             else if (transcript.includes('close')) {
-                Actions.handleImage();
-                console.log('Closing popup...');
-                setPopupOpen(false);
+                if (popupOpen) {
+                    Actions.handleImage();
+                    console.log('Closing popup...');
+                    setPopupOpen(false);
+                    setImageUrl('');
+                }
             }else if (transcript.includes('weather')) {
                 reply = await getReply({transcript});
                 console.log(reply);
