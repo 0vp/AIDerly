@@ -12,7 +12,6 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class ElderlyChatbot:
     def __init__(self):
-        
         self.calendar = Calendaradvisor(storage_path="calendar_storage")
         self.medicine = MedicineAdvisor()
         self.weather = WeatherAdvisor()
@@ -83,7 +82,6 @@ class ElderlyChatbot:
         try:
             # Analyze the query
             analysis = self.analyze_query(query)
-            print(analysis)
             if 'error' in analysis:
                 return f"I'm sorry, I had trouble understanding that. Could you please rephrase your question?"
 
@@ -91,6 +89,7 @@ class ElderlyChatbot:
             if analysis['query_type'] == 'calendar':
                 if analysis['action_needed']:
                     result = self.calendar.process_calendar_query(query, user_id)
+                    
                     return f"{analysis['response_text']} {self._format_calendar_response(result)}"
                 
             elif analysis['query_type'] == 'medicine':
@@ -103,8 +102,22 @@ class ElderlyChatbot:
             elif analysis['query_type'] == 'weather':
                 if analysis['action_needed']:
                     weather_result = self.weather.get_weather_data()
-                    advice = self.weather.get_weather_advice()
-                    return f"{analysis['response_text']} {weather_result} {advice}"
+                    weather_advice = self.weather.get_weather_advice()
+                    prompt = f"""
+                    weather result is {weather_result}
+                    weather advice is {weather_advice}
+                    return two sentence about the current weather and tips for elderly adults 
+                    """
+
+                    response = client.chat.completions.create(model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": self.SYSTEM_PROMPT},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7)
+                    advice_content = response.choices[0].message.content
+                    advice_dict = json.loads(advice_content)
+                    return advice_dict["response_text"]
                 
             # For general queries, return the response text
             return analysis['response_text']
@@ -136,7 +149,6 @@ class ElderlyChatbot:
         """Format weather advice for user"""
         if 'error' in result:
             return "I couldn't get the weather information at the moment."
-        print(result)
         weather = result.get('current_weather', {})
         advice = result.get('advice', {})
         

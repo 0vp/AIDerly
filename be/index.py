@@ -52,9 +52,6 @@ def get_current_weather():
         })
 
 
-
-
-
 @app.route('/calendar/update', methods=['POST'])
 def update_calendar():
     """
