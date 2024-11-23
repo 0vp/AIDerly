@@ -8,7 +8,7 @@ import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
 
-const Listen = () => {
+const Listen = ({ setDecibel }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [popupOpen, setPopupOpen] = useState(false);
@@ -32,6 +32,8 @@ const Listen = () => {
 
     const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
+        if (loading) return;
+
         let reply = "";
         if (transcript.length >= 5) {
             const actions = {
@@ -93,6 +95,10 @@ const Listen = () => {
             startListening();
         }
     }, [listening]);
+
+    useEffect(() => {
+        setDecibel(decibel);
+    }, [decibel]);
 
     useEffect(() => {
         console.log('Transcript:', transcript);

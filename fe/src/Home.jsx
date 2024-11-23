@@ -162,7 +162,7 @@ export default function Home() {
                     <SafetyTips/>
                 </div>
             </div>
-            <Listen />
+            <Listen setDecibel={setDecibel} />
         </>
     );
 }

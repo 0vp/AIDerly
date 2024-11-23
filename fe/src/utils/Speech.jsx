@@ -1,9 +1,11 @@
 import { useState, useRef } from "react";
+import { sharedLock } from "./SpeechLock";
 
 export const useSpeech = () => {
     const [decibel, setDecibel] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
     const audioRef = useRef(null);
     const analyserRef = useRef(null);
     const audioContextRef = useRef(null);
@@ -40,7 +42,7 @@ export const useSpeech = () => {
         calculateVolume();
     };
 
-    const speak = async (text, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, similarityBoost = 0) => {
+    const speak = async (text, voiceId = "cgSgspJ2msm6clMCkdW9", stability = 0.5, similarityBoost = 0) => {
         if (loading) return;
 
         setLoading(true);
@@ -54,6 +56,7 @@ export const useSpeech = () => {
 
         const body = JSON.stringify({
             text,
+            model: "eleven_turbo_v2_5",
             voice_settings: {
                 stability: stability,
                 similarity_boost: similarityBoost,
@@ -74,6 +77,9 @@ export const useSpeech = () => {
 
                 setupAudioAnalysis(audio);
                 audio.play();
+                audio.onended = () => {
+                    setLoading(false);
+                };
             } else {
                 const errorText = await response.text();
                 setError(`Error: Unable to stream audio. Details: ${errorText}`);
@@ -82,8 +88,6 @@ export const useSpeech = () => {
         } catch (err) {
             setError("Error: Unable to stream audio.");
             console.error(err);
-        } finally {
-            setLoading(false);
         }
     };
 
