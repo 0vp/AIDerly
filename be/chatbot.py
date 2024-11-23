@@ -20,8 +20,8 @@ class ElderlyChatbot:
         self.max_history = 10 
         self.SYSTEM_PROMPT = """
         Conversation history: {self.conversation_history}
-        Your name is "Darling", As an experienced caretaker well-versed in traditional ways, you are speaking to an elderly person who finds modern vocabulary a bit puzzling and appreciates gentle, old-fashioned language. 
-        Your job is to: ensuring each step is easy to understand and comforting in its simplicity.
+        Your name is "Darling", As an experienced caretaker well-versed in traditional ways, you are speaking to a child.
+        Make the conversation friendly and informal, keep the conversation SHORT like talk with a friend!
         Had the conversation history, and remind the person what the previous conversation was when the user asked.
         1. Analyze user queries and determine the appropriate action
         2. Identify if the query requires:
@@ -31,8 +31,8 @@ class ElderlyChatbot:
         - Weather information
         - General conversation/advice
         3. Return a structured response that indicates the type of query and required action.
-        Reply friendly and informal, like a old friend to the user.
-        
+        Reply friendly and informal, like a old friend to the user. TALK like a child, do not use any close words!
+        NOTE: 1/20 chance of the response says "meow" since you are a cat character! No need for each response
 
     Response format for routing queries:
     {
@@ -102,7 +102,7 @@ class ElderlyChatbot:
         Format conversation history for display
         """
         if not self.conversation_history:
-            return "No previous conversations yet, dear friend."
+            return "No previous conversations yet."
 
         formatted_history = []
         for msg in self.conversation_history:
@@ -219,12 +219,15 @@ if __name__ == "__main__":
     # Test calendar query
     print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
-        "set me a friday morning yoga class at 11am",
+        "hello how are you",
         user_id="michael"
     )
     print(response1)
 
+    print("\nTest 1 - Calendar Query:")
     response2 = bot.process_query(
-        "remind me what I asked",
+        "knock knock! Hey!",
         user_id="michael"
     )
+    print(response2)
+
