@@ -12,8 +12,10 @@
     background: rgb(255, 255, 255);
     border-radius: 10px;
     animation: fadeIn 0.5s ease-in;
-    width: 80%;
-    max-width: 500px;
+    width: 100%;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
   

@@ -82,7 +82,7 @@ const Schedule = () => {
           }
 
     return (
-        <div className=" w-[90vw] bg-white">  
+        <div className=" w-[90vw] h-[90vh] bg-white">  
             <div className="grid grid-cols-5">
                 
                 {data.schedule.map((daySchedule, index) => (
