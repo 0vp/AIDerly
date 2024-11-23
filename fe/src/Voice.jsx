@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Speech from "./utils/Speech";
+// import Speech from "./utils/Speech";
 import Listen from "./utils/Listen";
 
 const App = () => {
@@ -7,10 +7,10 @@ const App = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-200">
-            <Speech toSay={"hi darling"} setDecibel={setDecibel} />
+            {/* <Speech toSay={"hi darling"} setDecibel={setDecibel} />
             <div>
                 {decibel.toFixed(2)} dB
-            </div>
+            </div> */}
         </div>
     );
 };
