@@ -9,6 +9,8 @@ import Listen from "./utils/Listen";
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false); // State for animation
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup
 
     const simulateKeyPress = (key) => {
         const keyDownEvent = new KeyboardEvent('keydown', { key });
@@ -45,17 +47,55 @@ export default function Home() {
     //     simulateKeyPress('1');
     // };
 
+    const handleButtonClick = () => {
+        setIsPopupOpen(!isPopupOpen);
+        setIsAnimating(true);
+        setTimeout(() => {
+            setIsAnimating(false);
+        }, 300); // Match the animation duration
+    };
+
     return (
         <>
+            <style>{`
+                .pop-up {
+                    transition: transform 0.3s ease;
+                }
+                .pop-up.animate {
+                    animation: popUpAnimation 0.3s forwards;
+                }
+                @keyframes popUpAnimation {
+                    0% {
+                        transform: scale(1);
+                    }
+                    50% {
+                        transform: scale(1.1);
+                    }
+                    100% {
+                        transform: scale(1);
+                    }
+                }
+            `}</style>
             <Spline scene="https://prod.spline.design/DvEjptebRZFHNICp/scene.splinecode" />
             <Speech toSay={"hi darling"} setDecibel={setDecibel} />
             <div>
                 {decibel.toFixed(2)} dB
             </div>
             <div className="absolute top-12 left-24">
-                <Popup className="" trigger={<button>Trigger</button>} position="bottom left">
+                
+                <button onClick={handleButtonClick}>
+                    Show Pop-Up
+                </button>
+
+
+                {isPopupOpen && (
+                <div className={`pop-up ${isAnimating ? "animate" : ""}`}>
+                        <Schedule></Schedule>
+                    </div>
+                )}
+                {/* <Popup className="" trigger={<button>Trigger</button>} position="bottom left">
                     <Schedule></Schedule>
-                </Popup>
+                </Popup> */}
             </div>
             <Listen />
         </>
