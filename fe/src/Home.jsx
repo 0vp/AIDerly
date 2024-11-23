@@ -23,6 +23,11 @@ export default function Home() {
         health_advice: ["Stay hydrated", "Take your vitamins"],
         weather_summary: ["It's sunny today", "Expect rain in the evening"]
     });
+
+    // subtitles
+    const [transcript, setTranscript] = useState("");
+    const [subtitles, setSubtitles] = useState("");
+    
     const fetchData = async () => {
         try {
             console.log('Waiting for response...');
@@ -105,7 +110,14 @@ export default function Home() {
             
             <div className="w-[99vw] overflow-x-hidden h-screen bg-[#F8F8F8]">
                 <Spline scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" />
-                <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8]"></div>
+                <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8] px-36">
+                    <div className="flex w-full justify-center">
+                        <span className="font-bold">You</span>: {transcript}
+                    </div>
+                    <div className="flex w-full justify-center">
+                        <span className="font-bold">Darling</span>: {subtitles}
+                    </div>
+                </div>
             </div>
 
             {/* <Speech toSay={"hi darling"} setDecibel={setDecibel} />
@@ -156,7 +168,7 @@ export default function Home() {
                     <SafetyTips safety_tips={list.safety_tips} />
                 </div>
             </div>
-            <Listen setDecibel={setDecibel} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
         </>
     );
 }

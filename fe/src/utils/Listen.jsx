@@ -8,7 +8,8 @@ import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
-const Listen = ({ setDecibel }) => {
+
+const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -90,7 +91,9 @@ const Listen = ({ setDecibel }) => {
              else {
                 reply = await getReply(transcript);
             }
+
             speak(reply);
+            setSubtitles(reply);
             console.log({transcript, reply});
         }
     }
@@ -113,6 +116,10 @@ const Listen = ({ setDecibel }) => {
     }, [decibel]);
 
     useEffect(() => {
+        setTranscript(transcript);
+    }, [transcript]);
+
+    useEffect(() => {
         console.log('Transcript:', transcript);
         if (imageUrl) {
             console.log('Image URL:', imageUrl);
@@ -126,15 +133,15 @@ const Listen = ({ setDecibel }) => {
     }, []);
 
     return (
-        <div className='w-full h-screen'>
-            <p>Microphone: {listening ? 'on' : 'off'}</p>
+        <div>
+            {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
             {/* <button onClick={startListening}>Start</button>
             <button onClick={stopListening}>Stop</button>
             <button onClick={resetTranscript}>Reset</button> */}
-            <p>{transcript}</p>
+            {/* <p>{transcript}</p> */}
             <Popup open={popupOpen} onClose={() => {setImageUrl('')}} position="right center">
-                <div>
-                    <img src={imageUrl} alt="Generated" />
+                <div className='flex w-full bg-red-400 items-center justify-center'>
+                    <img className='w-full' src={imageUrl} alt="Generated" />
                 </div>
             </Popup>
             <Popup open={openCalendar} position="right center">
