@@ -1,0 +1,43 @@
+{
+  "user_id": "abc",
+  "schedule": [
+    {
+      "day": "Monday",
+      "events": []
+    },
+    {
+      "day": "Tuesday",
+      "events": [
+        {
+          "time": "10:00",
+          "title": "Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Remember to bring your yoga mat"
+        }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "events": []
+    },
+    {
+      "day": "Thursday",
+      "events": []
+    },
+    {
+      "day": "Friday",
+      "events": []
+    },
+    {
+      "day": "Saturday",
+      "events": []
+    },
+    {
+      "day": "Sunday",
+      "events": []
+    }
+  ],
+  "last_updated": "2024-11-23T10:40:03.471590",
+  "action_taken": "changed Yoga Class time to 10:00 on Tuesday"
+}

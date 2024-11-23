@@ -1,0 +1,43 @@
+{
+  "user_id": "test_user",
+  "schedule": [
+    {
+      "day": "Monday",
+      "events": []
+    },
+    {
+      "day": "Tuesday",
+      "events": [
+        {
+          "time": "10:00",
+          "title": "Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Bring your yoga mat and wear comfortable clothes"
+        }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "events": []
+    },
+    {
+      "day": "Thursday",
+      "events": []
+    },
+    {
+      "day": "Friday",
+      "events": []
+    },
+    {
+      "day": "Saturday",
+      "events": []
+    },
+    {
+      "day": "Sunday",
+      "events": []
+    }
+  ],
+  "last_updated": "2024-11-23T10:38:14.545974",
+  "action_taken": "changed yoga class time to 10:00 on Tuesday"
+}
