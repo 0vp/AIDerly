@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .popup-overlay {
     background: rgba(0, 0, 0, 0.5);
@@ -9,11 +9,11 @@
     align-items: center;
 }
 .popup-content {
-    background: rgb(255, 255, 255);
+    width: 50px;
     border-radius: 10px;
-    animation: fadeIn 0.5s ease-in;
-    width: 80%;
-    max-width: 500px;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
 }
   

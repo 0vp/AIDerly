@@ -14,7 +14,7 @@ const Schedule = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchData();
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, []);

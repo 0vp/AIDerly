@@ -7,13 +7,14 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
-
+import Schedule from '../components/schedule';
 const Listen = ({ setDecibel }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+    const [openCalendar, setOpenCalendar] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const { speak, decibel, loading, error } = useSpeech();
-
+    
     const {
         transcript,
         listening,
@@ -45,6 +46,7 @@ const Listen = ({ setDecibel }) => {
                 setImageUrl(imageUrl['image']);
                 reply = "Here is the image you requested";
             }else if (transcript.includes("calendar")){
+                setOpenCalendar(!openCalendar);
                 Actions.handleCalendar
                 reply = "Here is your calendar";
             } else if (transcript.includes("medicine")) {
@@ -134,6 +136,9 @@ const Listen = ({ setDecibel }) => {
                 <div>
                     <img src={imageUrl} alt="Generated" />
                 </div>
+            </Popup>
+            <Popup open={openCalendar} position="right center">
+                <Schedule></Schedule>
             </Popup>
         </div>
     );

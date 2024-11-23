@@ -5,7 +5,6 @@ import Advice from "./components/Advice";
 import SafetyTips from "./components/Tips";
 // import Listen from "./utils/Listen";
 // import {Speech} from "./utils/Speech";
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Schedule from './components/schedule';
 import Listen from "./utils/Listen";
@@ -13,7 +12,6 @@ import Listen from "./utils/Listen";
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
-    const [isAnimating, setIsAnimating] = useState(false); // State for animation
     const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup
     const [isSlideVisible1, setIsSlideVisible1] = useState(false); // State for first slide popup visibility
     const [isSlideVisible2, setIsSlideVisible2] = useState(false); // State for second slide popup visibility
@@ -88,13 +86,6 @@ export default function Home() {
     //     simulateKeyPress('1');
     // };
 
-    const handleButtonClick = () => {
-        setIsPopupOpen(!isPopupOpen);
-        setIsAnimating(true);
-        setTimeout(() => {
-            setIsAnimating(false);
-        }, 300); // Match the animation duration
-    };
 
     const handleSlidePopup1 = () => {
         setIsSlideVisible1(!isSlideVisible1);
@@ -111,25 +102,7 @@ export default function Home() {
     return (
         <>
 
-            <style>{`
-                .pop-up {
-                    transition: transform 0.3s ease;
-                }
-                .pop-up.animate {
-                    animation: popUpAnimation 0.3s forwards;
-                }
-                @keyframes popUpAnimation {
-                    0% {
-                        transform: scale(1);
-                    }
-                    50% {
-                        transform: scale(1.1);
-                    }
-                    100% {
-                        transform: scale(1);
-                    }
-                }
-            `}</style>
+            
             <div className="w-[99vw] overflow-x-hidden h-screen bg-[#F8F8F8]">
                 <Spline scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8]"></div>
@@ -140,20 +113,6 @@ export default function Home() {
                 {decibel.toFixed(2)} dB
             </div> */}
             <div className="absolute top-12 left-24">
-                
-                <button onClick={handleButtonClick}>
-                    Show Pop-Up
-                </button>
-
-
-                {isPopupOpen && (
-                <div className={`pop-up ${isAnimating ? "animate" : ""}`}>
-                        <Schedule></Schedule>
-                    </div>
-                )}
-                {/* <Popup className="" trigger={<button>Trigger</button>} position="bottom left">
-                    <Schedule></Schedule>
-                </Popup> */}
 
                 <button
                     onClick={handleSlidePopup1}

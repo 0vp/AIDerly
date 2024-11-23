@@ -7,7 +7,15 @@
     },
     {
       "day": "Tuesday",
-      "events": []
+      "events": [
+        {
+          "time": "15:00",
+          "title": "Swimming",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Bring a towel and swimming goggles"
+        }
+      ]
     },
     {
       "day": "Wednesday",
@@ -30,6 +38,6 @@
       "events": []
     }
   ],
-  "last_updated": "2024-11-23T17:07:12.764769",
-  "action_taken": "cleared all events from the calendar"
+  "last_updated": "2024-11-23T17:54:09.590779",
+  "action_taken": "added swimming event at 15:00 on Tuesday"
 }
