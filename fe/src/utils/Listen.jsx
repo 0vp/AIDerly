@@ -9,6 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 
 const Listen = () => {
+    const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [popupOpen, setPopupOpen] = useState(false);
     const { speak, decibel, loading, error } = useSpeech();
@@ -32,20 +33,20 @@ const Listen = () => {
     const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
         let reply = "";
-        if (transcript.includes('picture of')) {
-            let img = transcript.split('picture of')[1];
-            console.log('Taking picture... of', img);
-            let imageUrl = await getImageUrl(img);
-            console.log('Image URL:', imageUrl['image']);
-            setImageUrl(imageUrl['image']);
-        } else if (transcript.includes('close')) {
-            console.log('Closing popup...');
-            setPopupOpen(false);
-        } else {
-            reply = getReply(transcript);
-        }
-
         if (transcript.length >= 5) {
+            if (transcript.includes('picture of')) {
+                let img = transcript.split('picture of')[1];
+                console.log('Taking picture... of', img);
+                let imageUrl = await getImageUrl(img);
+                console.log('Image URL:', imageUrl['image']);
+                setImageUrl(imageUrl['image']);
+            } else if (transcript.includes('close')) {
+                console.log('Closing popup...');
+                setPopupOpen(false);
+            } else {
+                reply = await getReply(transcript);
+            }
+            
             speak(reply);
             console.log({transcript, reply});
         }

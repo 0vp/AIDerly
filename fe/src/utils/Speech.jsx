@@ -41,6 +41,8 @@ export const useSpeech = () => {
     };
 
     const speak = async (text, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, similarityBoost = 0) => {
+        if (loading) return;
+
         setLoading(true);
         setError("");
 
