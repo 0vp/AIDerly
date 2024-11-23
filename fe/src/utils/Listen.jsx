@@ -69,7 +69,7 @@ const Listen = ({ setDecibel }) => {
                 reply = "WOOHOO DANCE PARTY!";
             } else if (transcript.includes("spin")) {
                 Actions.handleSpin();
-                reply = "SPINNING AROUND AND AROUUU I'M GETTING DIZZY!";
+                reply = "SPINNING AROUND AND AROUUUDADADADADAAAAAAA I'M GETTING DIZZY!";
             }
             else if (transcript.includes('close')) {
                 Actions.handleImage();
