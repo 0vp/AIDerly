@@ -1,11 +1,10 @@
 import {useState, useEffect} from "react";
 import Spline from '@splinetool/react-spline';
-
-import Listen from "./utils/Listen";
+// import Listen from "./utils/Listen";
 import Speech from "./utils/Speech";
-
-import Schedule from './components/Schedule';
-import {useState, useEffect} from "react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import Schedule from './components/schedule';
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -41,9 +40,9 @@ export default function Home() {
         setI(i + 1);
     }, [decibel]);
     
-    const handleButtonClick = () => {
-        simulateKeyPress('1');
-    };
+    // const handleButtonClick = () => {
+    //     simulateKeyPress('1');
+    // };
 
     return (
         <>
@@ -52,6 +51,12 @@ export default function Home() {
             <div>
                 {decibel.toFixed(2)} dB
             </div>
+            <div className="absolute top-0">
+                <Popup className="" trigger={<button> Trigger</button>} position="center">
+                    <Schedule></Schedule>
+                </Popup>
+            </div>
+
         </>
     );
 }
