@@ -79,7 +79,7 @@ class WeatherAdvisor:
                 }}
                 """
 
-            response = client.chat.completions.create(model="gpt-4",
+            response = client.chat.completions.create(model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a weather advisor for elderly adults in Montreal, focusing on their safety and comfort."},
                 {"role": "user", "content": prompt}

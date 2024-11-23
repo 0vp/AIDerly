@@ -17,6 +17,7 @@ class Calendaradvisor:
             2. Analyze the current calendar if provided
             3. Make appropriate modifications (add/change/delete events)
             4. Return a structured JSON calendar
+            5. if the query is clean the calendar, then clear all events, return an empty calendar
 
             Example calendar format:
             {
@@ -108,7 +109,7 @@ class Calendaradvisor:
             Include 'action_taken' describing what changed.
             """
 
-            response = client.chat.completions.create(model="gpt-4",
+            response = client.chat.completions.create(model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": self.SYSTEM_PROMPT},
                 {"role": "user", "content": prompt}
@@ -144,10 +145,27 @@ class Calendaradvisor:
         """Get current calendar for user"""
         calendar = self._load_calendar(user_id)
         return calendar if calendar else {"message": "No calendar found", "user_id": user_id}
+    
+    # def clear_all_events(self, user_id):
+    #     """Clear all events from calendar"""
+    #     empty_calendar = {
+    #         "user_id": user_id,
+    #         "schedule": [
+    #             {
+    #                 "day": day,
+    #                 "events": []
+    #             } for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    #         ],
+    #         "last_updated": datetime.now().isoformat(),
+    #         "action_taken": "cleared all events"
+    #     }
+    #     self._save_calendar(user_id, empty_calendar)
+    #     return empty_calendar
+        
 
 def test_calendar_gpt():
     """Test function to demonstrate usage"""
-    calendar = Calendaradvisor(storage_path="test_calendar_storage")
+    calendar = Calendaradvisor(storage_path="calendar_storage")
 
     print("\nTest 1 - delete an event:")
     test1 = calendar.process_calendar_query(
@@ -157,4 +175,5 @@ def test_calendar_gpt():
     print(json.dumps(test1, indent=2))
 
 if __name__ == "__main__":
-    test_calendar_gpt()
+    calendar = Calendaradvisor(storage_path="calendar_storage")
+    calendar.process_calendar_query("clear all my calendar", user_id="michael")

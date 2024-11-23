@@ -3,41 +3,145 @@
   "schedule": [
     {
       "day": "Monday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     },
     {
       "day": "Tuesday",
       "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
         {
           "time": "10:00",
           "title": "Yoga Class",
           "duration": "60",
           "type": "exercise",
           "notes": "Bring your yoga mat and wear comfortable clothes"
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
         }
       ]
     },
     {
       "day": "Wednesday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     },
     {
       "day": "Thursday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     },
     {
       "day": "Friday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     },
     {
       "day": "Saturday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     },
     {
       "day": "Sunday",
-      "events": []
+      "events": [
+        {
+          "time": "08:00",
+          "title": "Morning Medication - Aspirin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Warfarin."
+        },
+        {
+          "time": "22:00",
+          "title": "Evening Medication - Warfarin",
+          "duration": "5",
+          "type": "medical",
+          "notes": "Take with a full glass of water. Do not take with Aspirin."
+        }
+      ]
     }
   ],
-  "last_updated": "2024-11-23T10:38:14.545974",
-  "action_taken": "changed yoga class time to 10:00 on Tuesday"
+  "last_updated": "2024-11-23T10:55:40.412616",
+  "action_taken": "added daily morning and evening medication reminders"
 }
