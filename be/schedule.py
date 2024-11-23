@@ -1,150 +1,162 @@
-from flask import Blueprint, request, jsonify
+# calendar_gpt.py
+
 from openai import OpenAI
 
-
-from pymongo import MongoClient
-from datetime import datetime, timedelta
+from datetime import datetime
+import json
 import os
 from dotenv import load_dotenv
-
+import pathlib
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-# Create Blueprint
-schedule_bp = Blueprint('schedule', __name__)
+class CalendarGPT:
+    def __init__(self, storage_path="calendar_storage"):
+        self.storage_path = storage_path
+        self._init_storage()
 
-client = MongoClient(os.getenv("MONGODB_URI"))
-db = client.scheduler_db
-schedules = db.schedules
+        self.SYSTEM_PROMPT = """You are a calendar management assistant for elderly adults. Your job is to:
+            1. Understand natural language requests about calendar management
+            2. Analyze the current calendar if provided
+            3. Make appropriate modifications (add/change/delete events)
+            4. Return a structured JSON calendar
 
-def format_current_schedule(schedule):
-    if not schedule or not schedule.get('events'):
-        return "No current schedule exists."
+            Example calendar format:
+            {
+                "user_id": "user123",
+                "schedule": [
+                    {
+                        "day": "Monday",
+                        "events": [
+                            {
+                                "time": "09:00",
+                                "title": "Morning Walk",
+                                "duration": "30",
+                                "type": "exercise",
+                                "notes": "Remember to wear comfortable shoes"
+                            }
+                        ]
+                    }
+                ],
+                "last_updated": "2024-11-22T10:00:00",
+                "action_taken": "added morning walk"
+            }
 
-    formatted = "Current Schedule:\n"
-    for event in schedule['events']:
-        formatted += f"{event['day']} at {event['time']}: {event['activity']} ({event['duration']})\n"
-    return formatted
+            Rules:
+            1. Keep times in 24-hour format (HH:MM)
+            2. Include helpful notes for elderly users
+            3. Specify duration in minutes
+            4. Use activity types: exercise, medical, social, meal, hobby
+            5. Maintain any non-conflicting existing events
+            6. Return complete weekly schedule even if only one day changes
+            7. Always include all days of the week in schedule
+            8. Sort events by time within each day"""
 
-def parse_gpt_response(response):
-    try:
-        events = []
-        for line in response.strip().split('\n'):
-            if line and 'at' in line and ':' in line:
-                day_part, rest = line.split(" at ")
-                time_part, activity_part = rest.split(": ")
-                activity, duration = activity_part.rsplit(" (", 1)
-                duration = duration.rstrip(")")
+    def _init_storage(self):
+        """Initialize storage directory"""
+        pathlib.Path(self.storage_path).mkdir(parents=True, exist_ok=True)
 
-                events.append({
-                    "day": day_part.strip(),
-                    "time": time_part.strip(),
-                    "activity": activity.strip(),
-                    "duration": duration.strip()
-                })
-        return events
-    except Exception as e:
-        return None
+    def _get_calendar_path(self, user_id):
+        """Get path for user's calendar file"""
+        return os.path.join(self.storage_path, f"{user_id}_calendar.json")
 
-def generate_schedule_with_gpt(current_schedule, query):
-    try:
-        prompt = f"""
-        You are a scheduling assistant for elderly people. Please update or create a weekly schedule based on the following:
+    def _load_calendar(self, user_id):
+        """Load calendar from file"""
+        try:
+            calendar_path = self._get_calendar_path(user_id)
+            if os.path.exists(calendar_path):
+                with open(calendar_path, 'r') as file:
+                    return json.load(file)
+            return None
+        except Exception as e:
+            print(f"Error loading calendar: {e}")
+            return None
 
-        {current_schedule}
+    def _save_calendar(self, user_id, calendar_data):
+        """Save calendar to file"""
+        try:
+            calendar_path = self._get_calendar_path(user_id)
+            with open(calendar_path, 'w') as file:
+                json.dump(calendar_data, file, indent=2)
+            return True
+        except Exception as e:
+            print(f"Error saving calendar: {e}")
+            return False
 
-        User's request: {query}
-
-        Please provide the updated schedule in the following format for each event:
-        DAY at TIME: ACTIVITY (DURATION)
-
-        Rules:
-        1. Use 24-hour time format (e.g., 14:00)
-        2. Keep existing events unless they conflict with new requests
-        3. Specify duration for each activity
-        4. If events conflict, prioritize the new request
-        5. Keep the schedule realistic and allow for travel time
-        6. Make sure activities are suitable for elderly people
+    def process_calendar_query(self, query, user_id="default_user"):
         """
+        Process a calendar query, load existing calendar, update it, and save changes
+        
+        Args:
+            query (str): Natural language query about calendar modification
+            user_id (str): User identifier
+            
+        Returns:
+            dict: Updated calendar in JSON format
+        """
+        try:
+            # Load existing calendar
+            current_calendar = self._load_calendar(user_id)
 
-        response = client.chat.completions.create(model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You are a precise scheduling assistant for elderly care."},
-            {"role": "user", "content": prompt}
-        ])
+            # Format current calendar context
+            calendar_context = (f"Current calendar:\n{json.dumps(current_calendar, indent=2)}"
+                              if current_calendar else "No existing calendar.")
 
-        return response.choices[0].message.content
+            prompt = f"""
+            User request: {query}
 
-    except Exception as e:
-        return None
+            {calendar_context}
 
-@schedule_bp.route('/schedule/update', methods=['POST'])
-def update_schedule():
-    try:
-        data = request.get_json()
+            Based on this request and the current calendar, provide an updated complete weekly calendar in the exact JSON format specified.
+            Include 'action_taken' describing what changed.
+            """
 
-        if not data or 'user_id' not in data or 'query' not in data:
-            return jsonify({'error': 'Missing user_id or query'}), 400
+            response = client.chat.completions.create(model="gpt-4",
+            messages=[
+                {"role": "system", "content": self.SYSTEM_PROMPT},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7)
 
-        current_schedule = schedules.find_one({"user_id": data['user_id']})
-        current_schedule_text = format_current_schedule(current_schedule) if current_schedule else "No existing schedule."
+            try:
+                calendar_data = json.loads(response.choices[0].message.content)
+                calendar_data['user_id'] = user_id
+                calendar_data['last_updated'] = datetime.now().isoformat()
 
-        gpt_response = generate_schedule_with_gpt(current_schedule_text, data['query'])
-        if not gpt_response:
-            return jsonify({'error': 'Failed to generate schedule'}), 500
+                if self._save_calendar(user_id, calendar_data):
+                    return calendar_data
+                else:
+                    return {
+                        'error': 'Failed to save calendar',
+                        'calendar_data': calendar_data
+                    }
 
-        new_events = parse_gpt_response(gpt_response)
-        if not new_events:
-            return jsonify({'error': 'Failed to parse schedule'}), 500
+            except json.JSONDecodeError as e:
+                return {
+                    'error': 'Failed to parse GPT response',
+                    'details': str(e)
+                }
 
-        week_start = datetime.now() - timedelta(days=datetime.now().weekday())
-        update_data = {
-            "user_id": data['user_id'],
-            "week_start": week_start,
-            "events": new_events,
-            "last_updated": datetime.now()
-        }
+        except Exception as e:
+            return {
+                'error': 'Failed to process calendar query',
+                'details': str(e)
+            }
 
-        schedules.update_one(
-            {"user_id": data['user_id']},
-            {"$set": update_data},
-            upsert=True
-        )
+    def get_calendar(self, user_id):
+        """Get current calendar for user"""
+        calendar = self._load_calendar(user_id)
+        return calendar if calendar else {"message": "No calendar found", "user_id": user_id}
 
-        return jsonify({
-            "message": "Schedule updated successfully",
-            "schedule": new_events
-        })
+def test_calendar_gpt():
+    """Test function to demonstrate usage"""
+    calendar = CalendarGPT(storage_path="test_calendar_storage")
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    print("\nTest 1 - delete an event:")
+    test1 = calendar.process_calendar_query(
+        "delete yoga class Tuesday at 9 AM",
+        user_id="test_user"
+    )
+    print(json.dumps(test1, indent=2))
 
-@schedule_bp.route('/schedule/<user_id>', methods=['GET'])
-def get_schedule(user_id):
-    """Get current schedule for a user"""
-    try:
-        schedule = schedules.find_one({"user_id": user_id})
-        if not schedule:
-            return jsonify({'error': 'No schedule found for this user'}), 404
-
-        # Convert MongoDB ObjectId and dates to strings for JSON serialization
-        schedule['_id'] = str(schedule['_id'])
-        schedule['week_start'] = schedule['week_start'].isoformat()
-        schedule['last_updated'] = schedule['last_updated'].isoformat()
-
-        return jsonify(schedule)
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@schedule_bp.route('/schedule/<user_id>', methods=['DELETE'])
-def clear_schedule(user_id):
-    """Clear a user's schedule"""
-    try:
-        result = schedules.delete_one({"user_id": user_id})
-        if result.deleted_count == 0:
-            return jsonify({'error': 'No schedule found for this user'}), 404
-
-        return jsonify({"message": "Schedule cleared successfully"})
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+if __name__ == "__main__":
+    test_calendar_gpt()

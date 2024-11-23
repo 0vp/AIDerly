@@ -1,5 +1,3 @@
-# index.py
-
 from flask import Flask, request, jsonify
 from functools import wraps
 import datetime
@@ -8,12 +6,17 @@ import requests as req
 from schedule import schedule_bp
 from gpt import gpt_bp
 from image import get_image
+from schedule import schedule_bp, schedules
+from gpt import gpt_bp
+from test_schedule import create_test_schedule_blueprint
 
 app = Flask(__name__)
 
-# Register blueprints
+# Register the schedule blueprint
 app.register_blueprint(schedule_bp)
 app.register_blueprint(gpt_bp)
+test_schedule_bp = create_test_schedule_blueprint(schedules)
+app.register_blueprint(test_schedule_bp)
 
 @app.route('/')
 def home():
@@ -22,24 +25,9 @@ def home():
     """
     today = datetime.date.today()
     year = today.strftime("%Y")
+
     return 'AIDerly © Houtong Cats ' + year
 
-@app.route('/test/gpt')
-def test_gpt_route():
-    """
-    Test the GPT service from browser
-    """
-    test_client = app.test_client()
-    
-    # Test with a simple prompt
-    response = test_client.post('/gpt/chat',
-                              json={'prompt': 'Suggest a gentle morning exercise for seniors'},
-                              content_type='application/json')
-    
-    return jsonify({
-        'test_name': 'GPT Service Test',
-        'result': response.get_json()
-    })
 
 @app.route('/image/<imageName>', methods=['GET'])
 def search_image(imageName):
@@ -59,7 +47,10 @@ def handle_options(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
     return response
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
