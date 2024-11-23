@@ -56,6 +56,14 @@ export const handleImage = () => {
 export const handleFlip = () => {
     simulateKeyPress('f');
 };
+
+export const handleDance = () => {
+    simulateKeyPress('d');
+};
+
+export const handleSpin = () => {
+    simulateKeyPress('s');
+};
 export const handleMedicine = () => {
 };
 
