@@ -19,25 +19,30 @@ export default function Home() {
     const [isSlideVisible2, setIsSlideVisible2] = useState(false); // State for second slide popup visibility
     const [isSlideVisible3, setIsSlideVisible3] = useState(false); // State for third slide popup visibility
     const [list, setList] = useState({
-        clothing_note: [],
-        safety_tips: [],
-        recommended_activities: [],
-        health_advice: [],
-        weather_summary: []
+        clothing_note: ["Wear a warm coat", "Don't forget your scarf"],
+        safety_tips: ["Drive carefully on icy roads", "Stay indoors during a storm"],
+        recommended_activities: ["Go for a walk", "Read a book"],
+        health_advice: ["Stay hydrated", "Take your vitamins"],
+        weather_summary: ["It's sunny today", "Expect rain in the evening"]
     });
-
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/weather/advice');
+            console.log('Waiting for response...');
+            const response = await fetch('http://127.0.0.1:5000/weather/advice');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
             const data = await response.json();
-            console.log(data);
             setList({
                 clothing_note: data.advice.clothing_advice,
                 safety_tips: data.advice.safety_tips,
                 recommended_activities: data.advice.recommended_activities,
                 health_advice: data.advice.health_advice,
-                weather_summary: data.advice.weather_summary
+                weather_summary: data.weather_summary // Correct access here
             });
+            console.log('Data fetched successfully:', data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

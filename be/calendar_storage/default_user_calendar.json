@@ -1,0 +1,43 @@
+{
+  "user_id": "default_user",
+  "schedule": [
+    {
+      "day": "Monday",
+      "events": []
+    },
+    {
+      "day": "Tuesday",
+      "events": []
+    },
+    {
+      "day": "Wednesday",
+      "events": []
+    },
+    {
+      "day": "Thursday",
+      "events": []
+    },
+    {
+      "day": "Friday",
+      "events": []
+    },
+    {
+      "day": "Saturday",
+      "events": []
+    },
+    {
+      "day": "Sunday",
+      "events": [
+        {
+          "time": "06:11",
+          "title": "Play",
+          "duration": "60",
+          "type": "hobby",
+          "notes": "Enjoy your favorite play. Make sure to have a comfortable seat!"
+        }
+      ]
+    }
+  ],
+  "last_updated": "2024-11-23T16:14:21.294231",
+  "action_taken": "added play event at 06:11 on Sunday"
+}
