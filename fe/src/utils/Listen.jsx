@@ -39,6 +39,7 @@ const Listen = () => {
                 medicine: Actions.handleMedicine,
                 news: Actions.handleNews,
                 picture: Actions.handleImage,
+                image: Actions.handleImage,
                 flip: Actions.handleFlip
             };
 
