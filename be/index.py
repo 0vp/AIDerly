@@ -8,16 +8,19 @@ from gpt import gpt_bp
 from image import get_image
 from gpt import gpt_bp
 from weather import WeatherAdvisor
+from medicine import MedicineAdvisor
+from chatbot import ElderlyChatbot
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Register the schedule blueprint
-
-app.register_blueprint(gpt_bp)
 
 calendar_advisor = Calendaradvisor(storage_path="calendar_storage")
 weather_advisor = WeatherAdvisor()
+medicine_advisor = MedicineAdvisor()
+chatbot = ElderlyChatbot()
+
+
 @app.route('/')
 def home():
     """
@@ -47,6 +50,9 @@ def get_current_weather():
             'weather': response,
             'timestamp': datetime.datetime.now().isoformat()
         })
+
+
+
 
 
 @app.route('/calendar/update', methods=['POST'])
@@ -141,6 +147,14 @@ def handle_options(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
 
     return response
+
+@app.route('/chatbot/<query>', methods=['GET'])
+def get_chatbot_response(query, user_id):
+    """
+    Get chatbot response
+    """
+    response = chatbot.process_query(query=query, user_id=user_id)
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run()
