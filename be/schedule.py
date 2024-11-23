@@ -176,4 +176,4 @@ def test_calendar_gpt():
 
 if __name__ == "__main__":
     calendar = Calendaradvisor(storage_path="calendar_storage")
-    calendar.process_calendar_query("clear all my calendar", user_id="michael")
+    calendar.process_calendar_query("set me a friday morning yoga class at 10am", user_id="michael")

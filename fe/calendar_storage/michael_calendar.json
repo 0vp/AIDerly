@@ -19,7 +19,29 @@
     },
     {
       "day": "Friday",
-      "events": []
+      "events": [
+        {
+          "time": "09:00",
+          "title": "Morning Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Bring your yoga mat and water bottle."
+        },
+        {
+          "time": "10:00",
+          "title": "Friday Morning Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Remember to stay hydrated."
+        },
+        {
+          "time": "11:00",
+          "title": "Friday Morning Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Don't forget to stretch before class."
+        }
+      ]
     },
     {
       "day": "Saturday",
@@ -30,6 +52,6 @@
       "events": []
     }
   ],
-  "last_updated": "2024-11-23T11:28:23.599183",
-  "action_taken": "cleared all events from the calendar"
+  "last_updated": "2024-11-23T16:10:29.085987",
+  "action_taken": "added another yoga class on Friday at 11am"
 }

@@ -106,11 +106,10 @@ class ElderlyChatbot:
                         temperature=0.7)
                         advice_content = response.choices[0].message.content
                         advice_dict = json.loads(advice_content)
-                        print ("aaaaaaaaashaghsgahsajh")
                         return advice_dict["response_text"]
-                else:
-                    result = self.calendar.process_calendar_query(query, user_id)
-                    return f"{analysis['response_text']} {self._format_calendar_response(result)}"
+                    else:
+                        result = self.calendar.process_calendar_query(query, user_id)
+                        return f"{analysis['response_text']} {self._format_calendar_response(result)}"
                 
             elif analysis['query_type'] == 'medicine':
                 if analysis['action_needed']:
@@ -182,7 +181,7 @@ if __name__ == "__main__":
     # Test calendar query
     print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
-        "give me the current weather info",
-        user_id="abc"
+        "set me a friday morning yoga class at 11am",
+        user_id="michael"
     )
     print(response1)
