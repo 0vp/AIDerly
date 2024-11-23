@@ -1,0 +1,35 @@
+{
+  "user_id": "michael",
+  "schedule": [
+    {
+      "day": "Monday",
+      "events": []
+    },
+    {
+      "day": "Tuesday",
+      "events": []
+    },
+    {
+      "day": "Wednesday",
+      "events": []
+    },
+    {
+      "day": "Thursday",
+      "events": []
+    },
+    {
+      "day": "Friday",
+      "events": []
+    },
+    {
+      "day": "Saturday",
+      "events": []
+    },
+    {
+      "day": "Sunday",
+      "events": []
+    }
+  ],
+  "last_updated": "2024-11-23T11:28:23.599183",
+  "action_taken": "cleared all events from the calendar"
+}
