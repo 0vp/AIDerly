@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import "regenerator-runtime/runtime.js";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { getImageUrl } from '../components/ImagePopup';
-
+import * as Actions from './Actions';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
@@ -34,6 +34,19 @@ const Listen = () => {
         // call response on transcript, then reset transcript, then unpause
         let reply = "";
         if (transcript.length >= 5) {
+            const actions = {
+                calendar: Actions.handleCalendar,
+                medicine: Actions.handleMedicine,
+                news: Actions.handleNews,
+                image: Actions.handleImage
+            };
+
+            Object.keys(actions).forEach(key => {
+                if (transcript.includes(key)) {
+                    actions[key]();
+                }
+            });
+
             if (transcript.includes('picture of')) {
                 let img = transcript.split('picture of')[1];
                 console.log('Taking picture... of', img);
@@ -41,12 +54,26 @@ const Listen = () => {
                 console.log('Image URL:', imageUrl['image']);
                 setImageUrl(imageUrl['image']);
             } else if (transcript.includes('close')) {
+                Actions.handleImage();
                 console.log('Closing popup...');
                 setPopupOpen(false);
             } else {
                 reply = await getReply(transcript);
             }
-            
+            const weatherActions = {
+                rainy: Actions.handleRainy,
+                sunny: Actions.handleSunny,
+                cloudy: Actions.handleCloudy,
+                snowy: Actions.handleSnowy,
+                windy: Actions.handleWindy
+            };
+
+            Object.keys(weatherActions).forEach(key => {
+                if (reply.includes(key)) {
+                    weatherActions[key]();
+                }
+            });
+
             speak(reply);
             console.log({transcript, reply});
         }
