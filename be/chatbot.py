@@ -88,8 +88,25 @@ class ElderlyChatbot:
             # Handle different query types
             if analysis['query_type'] == 'calendar':
                 if analysis['action_needed']:
+                    if analysis['function_call'] == 'check_calendar':
+                        calendar = self.calendar.get_calendar(user_id)
+                        prompt = f"""
+                        query is {query}
+                        current calendar is {calendar}
+                        please tell the user the current calendar and specify the day and time of the activity
+                        """
+
+                        response = client.chat.completions.create(model="gpt-4o-mini",
+                        messages=[
+                            {"role": "system", "content": self.SYSTEM_PROMPT},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.7)
+                        advice_content = response.choices[0].message.content
+                        advice_dict = json.loads(advice_content)
+                        return advice_dict["response_text"]
+                else:
                     result = self.calendar.process_calendar_query(query, user_id)
-                    
                     return f"{analysis['response_text']} {self._format_calendar_response(result)}"
                 
             elif analysis['query_type'] == 'medicine':
@@ -119,7 +136,7 @@ class ElderlyChatbot:
                     advice_dict = json.loads(advice_content)
                     return advice_dict["response_text"]
                 
-            # For general queries, return the response text
+
             return analysis['response_text']
 
         except Exception as e:
@@ -163,7 +180,7 @@ if __name__ == "__main__":
     # Test calendar query
     print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
-        "What's the weather like today and what should I wear?",
+        "Check my calendar on Tuesday",
         user_id="abc"
     )
     print(response1)
