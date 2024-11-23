@@ -41,6 +41,10 @@ export const handleWindy = () => {
     }, 3000);
 };
 
+export const handleImagae = () => {
+    simulateKeyPress('p');
+
+};
 export const handleMedicine = () => {
 };
 
