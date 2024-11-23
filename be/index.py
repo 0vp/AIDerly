@@ -6,7 +6,6 @@ from schedule import Calendaradvisor
 from gpt import gpt_bp
 from image import get_image
 from gpt import gpt_bp
-from test_schedule import create_test_schedule_blueprint
 from weather import WeatherAdvisor
 app = Flask(__name__)
 
