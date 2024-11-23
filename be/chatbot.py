@@ -82,6 +82,7 @@ class ElderlyChatbot:
         try:
             # Analyze the query
             analysis = self.analyze_query(query)
+            print(analysis)
             if 'error' in analysis:
                 return f"I'm sorry, I had trouble understanding that. Could you please rephrase your question?"
 
@@ -136,7 +137,6 @@ class ElderlyChatbot:
                     advice_dict = json.loads(advice_content)
                     return advice_dict["response_text"]
                 
-
             return analysis['response_text']
 
         except Exception as e:
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     # Test calendar query
     print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
-        "Check my calendar on Tuesday",
+        "give me the current weather info",
         user_id="abc"
     )
     print(response1)
