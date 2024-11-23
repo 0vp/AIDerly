@@ -48,6 +48,7 @@ export default function Home() {
     return (
         <>
             <Spline scene="https://prod.spline.design/DvEjptebRZFHNICp/scene.splinecode" />
+            <div className="absolute bottom-10 right-0 w-[200px] h-[50px] bg-white"></div>
             <Speech toSay={"hi darling"} setDecibel={setDecibel} />
             <div>
                 {decibel.toFixed(2)} dB
