@@ -1,5 +1,8 @@
 import {useState, useEffect} from "react";
 import Spline from '@splinetool/react-spline';
+import NotesApp from "./components/NoteApp";
+import Advice from "./components/Advice";
+import SafetyTips from "./components/Tips";
 // import Listen from "./utils/Listen";
 import Speech from "./utils/Speech";
 import Popup from 'reactjs-popup';
@@ -11,6 +14,9 @@ export default function Home() {
     const [i, setI] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false); // State for animation
     const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup
+    const [isSlideVisible1, setIsSlideVisible1] = useState(false); // State for first slide popup visibility
+    const [isSlideVisible2, setIsSlideVisible2] = useState(false); // State for second slide popup visibility
+    const [isSlideVisible3, setIsSlideVisible3] = useState(false); // State for third slide popup visibility
 
     const simulateKeyPress = (key) => {
         const keyDownEvent = new KeyboardEvent('keydown', { key });
@@ -53,6 +59,18 @@ export default function Home() {
         setTimeout(() => {
             setIsAnimating(false);
         }, 300); // Match the animation duration
+    };
+
+    const handleSlidePopup1 = () => {
+        setIsSlideVisible1(!isSlideVisible1);
+    };
+
+    const handleSlidePopup2 = () => {
+        setIsSlideVisible2(!isSlideVisible2);
+    };
+
+    const handleSlidePopup3 = () => {
+        setIsSlideVisible3(!isSlideVisible3);
     };
 
     return (
@@ -101,6 +119,48 @@ export default function Home() {
                 {/* <Popup className="" trigger={<button>Trigger</button>} position="bottom left">
                     <Schedule></Schedule>
                 </Popup> */}
+
+                <button
+                    onClick={handleSlidePopup1}
+                    className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        >
+                    Toggle Slide Pop-Up 1
+                </button>
+                <button
+                    onClick={handleSlidePopup2}
+                    className="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        >
+                    Toggle Slide Pop-Up 2
+                </button>
+                <button
+                    onClick={handleSlidePopup3}
+                    className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+                        >
+                    Toggle Slide Pop-Up 3
+                </button>
+                <div
+                    className={`absolute flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
+                            isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
+                            }`}
+                        >
+                    <NotesApp/>
+                </div>
+
+                <div
+                    className={`absolute top-32 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
+                            isSlideVisible2 ? "translate-x-0" : "-translate-x-[750px]"
+                            }`}
+                        >
+                    <Advice/>
+                </div>
+
+                <div
+                    className={`absolute top-48 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
+                            isSlideVisible3 ? "translate-x-0" : "-translate-x-[750px]"
+                            }`}
+                        >
+                    <SafetyTips/>
+                </div>
             </div>
             <Listen />
         </>
