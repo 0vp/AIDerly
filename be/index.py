@@ -4,8 +4,10 @@ from flask import Flask, request, jsonify
 from functools import wraps
 import datetime
 import requests as req
+
 from schedule import schedule_bp
 from gpt import gpt_bp
+from image import get_image
 
 app = Flask(__name__)
 
@@ -37,6 +39,16 @@ def test_gpt_route():
     return jsonify({
         'test_name': 'GPT Service Test',
         'result': response.get_json()
+    })
+
+@app.route('/image/<imageName>', methods=['GET'])
+def search_image(imageName):
+    """
+    Get an image from Yahoo search.
+    """
+
+    return jsonify({
+        'image': get_image(imageName)
     })
 
 @app.after_request
