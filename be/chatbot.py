@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from schedule import Calendaradvisor
 from medicine import MedicineAdvisor
 from weather import WeatherAdvisor
+from typing import List, Dict
 import os
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -15,7 +16,7 @@ class ElderlyChatbot:
         self.calendar = Calendaradvisor(storage_path="calendar_storage")
         self.medicine = MedicineAdvisor()
         self.weather = WeatherAdvisor()
-
+        self.conversation_history: List[Dict[str, str]] = []
         self.SYSTEM_PROMPT = """
         You are an AI assistant for elderly adults. Your job is to:
         1. Analyze user queries and determine the appropriate action
@@ -62,6 +63,8 @@ class ElderlyChatbot:
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7)
+            self.conversation_history.append({"role": "user", "content": query})
+            self.conversation_history.append({"role": "assistant", "content": response})
 
             # Parse the response
             analysis = json.loads(response.choices[0].message.content)
