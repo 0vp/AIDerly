@@ -9,6 +9,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Schedule from './components/schedule';
 import Listen from "./utils/Listen";
+
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -17,6 +18,40 @@ export default function Home() {
     const [isSlideVisible1, setIsSlideVisible1] = useState(false); // State for first slide popup visibility
     const [isSlideVisible2, setIsSlideVisible2] = useState(false); // State for second slide popup visibility
     const [isSlideVisible3, setIsSlideVisible3] = useState(false); // State for third slide popup visibility
+    const [list, setList] = useState({
+        clothing_note: ["Wear a warm coat", "Don't forget your scarf"],
+        safety_tips: ["Drive carefully on icy roads", "Stay indoors during a storm"],
+        recommended_activities: ["Go for a walk", "Read a book"],
+        health_advice: ["Stay hydrated", "Take your vitamins"],
+        weather_summary: ["It's sunny today", "Expect rain in the evening"]
+    });
+    const fetchData = async () => {
+        try {
+            console.log('Waiting for response...');
+            const response = await fetch('http://127.0.0.1:5000/weather/advice');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log(data);
+            setList({
+                clothing_note: data.advice.clothing_advice,
+                safety_tips: data.advice.safety_tips,
+                recommended_activities: data.advice.recommended_activities,
+                health_advice: data.advice.health_advice,
+                weather_summary: data.weather_summary // Correct access here
+            });
+            console.log('Data fetched successfully:', data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const simulateKeyPress = (key) => {
         const keyDownEvent = new KeyboardEvent('keydown', { key });
@@ -143,7 +178,7 @@ export default function Home() {
                             isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
-                    <NotesApp/>
+                    <NotesApp clothing_note={list.clothing_note} />
                 </div>
 
                 <div
@@ -151,7 +186,7 @@ export default function Home() {
                             isSlideVisible2 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
-                    <Advice/>
+                    <Advice recommended_activities={list.recommended_activities} />
                 </div>
 
                 <div
@@ -159,7 +194,7 @@ export default function Home() {
                             isSlideVisible3 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
-                    <SafetyTips/>
+                    <SafetyTips safety_tips={list.safety_tips} />
                 </div>
             </div>
             <Listen setDecibel={setDecibel} />

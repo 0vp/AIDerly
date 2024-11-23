@@ -1,28 +1,18 @@
 import React from "react";
 
-const NotesApp = () => {
-  const notes = [
-    { text: "Go grocery shopping", date: "Tomorrow" },
-    { text: "Find a movie to watch", date: "Today" },
-    { text: "Play golf", date: "Today" },
-    { text: "Clean the house & car", date: "Tomorrow" },
-
-    
-
-  ];
-
+const NotesApp = ({ clothing_note }) => {
   return (
     <div className="h-full flex items-center justify-center bg-gradient-to-t from-[#fcd036]/80 via-[#eddda4]/80 to-[#ffdd66]/90 -2 rounded-2xl p-6">
       <div className="relative bg-white/70 p-6 rounded-lg shadow-xl w-[90%] max-w-4xl opacity-100">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">NOTES</h1>
-          <p className="text-gray-500">{notes.length} ITEMS</p>
+          <h1 className="text-2xl font-bold text-gray-800">CLOTHING NOTES</h1>
+          <p className="text-gray-500">{clothing_note.length} ITEMS</p>
         </div>
 
-        {/* Notes */}
+        {/* Clothing Notes */}
         <div className="relative flex flex-wrap justify-center gap-x-8 gap-y-4">
-          {notes.map((note, index) => (
+          {clothing_note.map((item, index) => (
             <div
               key={index}
               className={`relative bg-white p-4 w-48 h-32 rounded-lg shadow-lg text-gray-800 text-center transform ${
@@ -34,8 +24,7 @@ const NotesApp = () => {
 
               {/* Note Content */}
               <div className="flex flex-col h-full justify-between">
-                <p className="text-lg font-semibold">{note.text}</p>
-                <p className="text-gray-500">{note.date}</p>
+                <p className="text-lg font-semibold">{item}</p>
               </div>
             </div>
           ))}
