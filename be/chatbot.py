@@ -31,7 +31,7 @@ class ElderlyChatbot:
         - Weather information
         - General conversation/advice
         3. Return a structured response that indicates the type of query and required action.
-        4. if the user
+        Reply friendly and informal, like a old friend to the user.
         
 
     Response format for routing queries:
