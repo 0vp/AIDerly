@@ -1,5 +1,5 @@
 {
-  "user_id": "abc",
+  "user_id": "default_user",
   "schedule": [
     {
       "day": "Monday",
@@ -13,7 +13,7 @@
           "title": "Yoga Class",
           "duration": "60",
           "type": "exercise",
-          "notes": "Bring a yoga mat and water"
+          "notes": "Bring your yoga mat and water bottle."
         }
       ]
     },
@@ -38,6 +38,6 @@
       "events": []
     }
   ],
-  "last_updated": "2024-11-23T12:53:44.245600",
-  "action_taken": "no change; yoga class already scheduled on Tuesday at 15:00"
+  "last_updated": "2024-11-23T12:51:29.562804",
+  "action_taken": "added yoga class on Tuesday at 3pm"
 }

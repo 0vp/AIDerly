@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
 from functools import wraps
 import datetime
 import requests as req
@@ -6,16 +7,20 @@ from schedule import Calendaradvisor
 from gpt import gpt_bp
 from image import get_image
 from gpt import gpt_bp
-from test_schedule import create_test_schedule_blueprint
 from weather import WeatherAdvisor
+from medicine import MedicineAdvisor
+from chatbot import ElderlyChatbot
+
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Register the schedule blueprint
-
-app.register_blueprint(gpt_bp)
 
 calendar_advisor = Calendaradvisor(storage_path="calendar_storage")
 weather_advisor = WeatherAdvisor()
+medicine_advisor = MedicineAdvisor()
+chatbot = ElderlyChatbot()
+
+
 @app.route('/')
 def home():
     """
@@ -25,7 +30,6 @@ def home():
     year = today.strftime("%Y")
 
     return 'AIDerly © Houtong Cats ' + year
-
 
 @app.route('/weather/advice', methods=['GET'])
 def get_weather_advice():
@@ -46,6 +50,9 @@ def get_current_weather():
             'weather': response,
             'timestamp': datetime.datetime.now().isoformat()
         })
+
+
+
 
 
 @app.route('/calendar/update', methods=['POST'])
@@ -110,14 +117,24 @@ def test_calendar():
     })
 
 
-@app.route('/image/<imageName>', methods=['GET'])
+@app.route('/image/<imageName>', methods=['GET', 'OPTIONS'])
 def search_image(imageName):
     """
     Get an image from Yahoo search.
     """
+    # if request.method == 'OPTIONS':
+    #     response = make_response()
+
+    #     response.headers.add("Access-Control-Allow-Origin", "*")
+    #     response.headers.add("Access-Control-Allow-Methods", "GET")
+    #     response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    #     return response, 204
+
+    url = get_image(imageName)
+    print(url)
 
     return jsonify({
-        'image': get_image(imageName)
+        'image': url
     })
 
 @app.after_request
@@ -131,7 +148,13 @@ def handle_options(response):
 
     return response
 
-
+@app.route('/chatbot/<query>', methods=['GET'])
+def get_chatbot_response(query, user_id='default_user'):
+    """
+    Get chatbot response
+    """
+    response = chatbot.process_query(query=query, user_id=user_id)
+    return jsonify(response)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

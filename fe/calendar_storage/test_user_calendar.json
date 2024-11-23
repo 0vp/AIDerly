@@ -31,6 +31,13 @@
           "notes": "Take with a full glass of water. Do not take with Warfarin."
         },
         {
+          "time": "09:00",
+          "title": "Yoga Class",
+          "duration": "60",
+          "type": "exercise",
+          "notes": "Bring your yoga mat and wear comfortable clothes"
+        },
+        {
           "time": "10:00",
           "title": "Yoga Class",
           "duration": "60",
@@ -142,6 +149,6 @@
       ]
     }
   ],
-  "last_updated": "2024-11-23T10:55:40.412616",
-  "action_taken": "added daily morning and evening medication reminders"
+  "last_updated": "2024-11-23T11:56:14.400765",
+  "action_taken": "scheduled yoga class every Tuesday at 09:00"
 }
