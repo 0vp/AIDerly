@@ -1,3 +1,15 @@
+const simulateKeyPress = (key) => {
+    const keyDownEvent = new KeyboardEvent('keydown', { key });
+    document.dispatchEvent(keyDownEvent);
+
+    // console.log('Key down:', key);
+
+    setTimeout(() => {
+        const keyUpEvent = new KeyboardEvent('keyup', { key });
+        document.dispatchEvent(keyUpEvent);
+        // console.log('Key up:', key);
+    }, 1);
+};
 export const handleCalendar = () => {
     setIsPopupOpen(isPopupOpen);
 };
