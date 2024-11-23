@@ -38,7 +38,8 @@ const Listen = () => {
                 calendar: Actions.handleCalendar,
                 medicine: Actions.handleMedicine,
                 news: Actions.handleNews,
-                image: Actions.handleImage
+                picture: Actions.handleImage,
+                flip: Actions.handleFlip
             };
 
             Object.keys(actions).forEach(key => {

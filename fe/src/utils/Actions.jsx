@@ -40,6 +40,10 @@ export const handleWindy = () => {
 export const handleImage = () => {
     simulateKeyPress('p');
 };
+
+export const handleFlip = () => {
+    simulateKeyPress('f');
+};
 export const handleMedicine = () => {
 };
 
