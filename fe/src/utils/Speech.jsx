@@ -42,25 +42,71 @@ export const useSpeech = () => {
         calculateVolume();
     };
 
-    const speak = async (text, voiceId = "cgSgspJ2msm6clMCkdW9", stability = 0.5, similarityBoost = 0) => {
+    // const speak = async (text, voiceId = "cgSgspJ2msm6clMCkdW9", stability = 0.5, similarityBoost = 0) => {
+    //     if (loading) return;
+
+    //     setLoading(true);
+    //     setError("");
+
+    //     const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_22050_32`;
+    //     const headers = {
+    //         "Content-Type": "application/json",
+    //         "xi-api-key": import.meta.env.VITE_ELEVENLABS_API_KEY,
+    //     };
+
+    //     const body = JSON.stringify({
+    //         text,
+    //         model: "eleven_turbo_v2_5",
+    //         voice_settings: {
+    //             stability: stability,
+    //             similarity_boost: similarityBoost,
+    //         },
+    //     });
+
+    //     try {
+    //         const response = await fetch(url, {
+    //             method: "POST",
+    //             headers,
+    //             body,
+    //         });
+
+    //         if (response.ok) {
+    //             const audioBlob = await response.blob();
+    //             const audio = new Audio(URL.createObjectURL(audioBlob));
+    //             audioRef.current = audio;
+
+    //             setupAudioAnalysis(audio);
+    //             audio.play();
+    //             audio.onended = () => {
+    //                 setLoading(false);
+    //             };
+    //         } else {
+    //             const errorText = await response.text();
+    //             setError(`Error: Unable to stream audio. Details: ${errorText}`);
+    //             console.error("Error Response:", errorText);
+    //         }
+    //     } catch (err) {
+    //         setError("Error: Unable to stream audio.");
+    //         console.error(err);
+    //     }
+    // };
+
+    const speak = async (text, voice = "nova", model = "tts-1") => {
         if (loading) return;
 
         setLoading(true);
         setError("");
 
-        const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_22050_32`;
+        const url = "https://api.openai.com/v1/audio/speech";
         const headers = {
             "Content-Type": "application/json",
-            "xi-api-key": import.meta.env.VITE_ELEVENLABS_API_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
         };
 
         const body = JSON.stringify({
-            text,
-            model: "eleven_turbo_v2_5",
-            voice_settings: {
-                stability: stability,
-                similarity_boost: similarityBoost,
-            },
+            model,
+            input: text,
+            voice,
         });
 
         try {
@@ -75,19 +121,20 @@ export const useSpeech = () => {
                 const audio = new Audio(URL.createObjectURL(audioBlob));
                 audioRef.current = audio;
 
-                setupAudioAnalysis(audio);
                 audio.play();
                 audio.onended = () => {
                     setLoading(false);
                 };
             } else {
                 const errorText = await response.text();
-                setError(`Error: Unable to stream audio. Details: ${errorText}`);
+                setError(`Error: Unable to generate audio. Details: ${errorText}`);
                 console.error("Error Response:", errorText);
+                setLoading(false);
             }
         } catch (err) {
-            setError("Error: Unable to stream audio.");
+            setError("Error: Unable to process the request.");
             console.error(err);
+            setLoading(false);
         }
     };
 
