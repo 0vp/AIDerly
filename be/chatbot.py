@@ -21,11 +21,12 @@ class ElderlyChatbot:
         1. Analyze user queries and determine the appropriate action
         2. Identify if the query requires:
         - Calendar management (e.g., scheduling activities, modifying activities for a specific date, clean the calendar)
+        if the user is asking only to get the current calendar, then the function_call is 'get_current_calendar';
         - Medication advice
         - Weather information
-        
         - General conversation/advice
         3. Return a structured response that indicates the type of query and required action.
+        
 
     Response format for routing queries:
     {
@@ -89,7 +90,7 @@ class ElderlyChatbot:
             # Handle different query types
             if analysis['query_type'] == 'calendar':
                 if analysis['action_needed']:
-                    if analysis['function_call'] == 'check_calendar':
+                    if analysis['function_call'] == 'get_current_calendar':
                         calendar = self.calendar.get_calendar(user_id)
                         prompt = f"""
                         query is {query}
@@ -105,6 +106,7 @@ class ElderlyChatbot:
                         temperature=0.7)
                         advice_content = response.choices[0].message.content
                         advice_dict = json.loads(advice_content)
+                        print ("aaaaaaaaashaghsgahsajh")
                         return advice_dict["response_text"]
                 else:
                     result = self.calendar.process_calendar_query(query, user_id)
