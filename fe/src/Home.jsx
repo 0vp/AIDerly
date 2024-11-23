@@ -47,7 +47,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="w-[99.2vw] overflow-x-hidden h-screen bg-[#F8F8F8]">
+            <div className="w-[99vw] overflow-x-hidden h-screen bg-[#F8F8F8]">
                 <Spline scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8]"></div>
             </div>
