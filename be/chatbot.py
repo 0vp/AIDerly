@@ -6,6 +6,7 @@ from schedule import Calendaradvisor
 from medicine import MedicineAdvisor
 from weather import WeatherAdvisor
 from typing import List, Dict
+from datetime import datetime
 import os
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -16,8 +17,12 @@ class ElderlyChatbot:
         self.medicine = MedicineAdvisor()
         self.weather = WeatherAdvisor()
         self.conversation_history: List[Dict[str, str]] = []
+        self.max_history = 10 
         self.SYSTEM_PROMPT = """
-        You are an AI assistant for elderly adults. Your job is to:
+        Conversation history: {self.conversation_history}
+        Your name is "Darling", As an experienced caretaker well-versed in traditional ways, you are speaking to an elderly person who finds modern vocabulary a bit puzzling and appreciates gentle, old-fashioned language. 
+        Your job is to: ensuring each step is easy to understand and comforting in its simplicity.
+        Had the conversation history, and remind the person what the previous conversation was when the user asked.
         1. Analyze user queries and determine the appropriate action
         2. Identify if the query requires:
         - Calendar management (e.g., scheduling activities, modifying activities for a specific date, clean the calendar)
@@ -26,6 +31,7 @@ class ElderlyChatbot:
         - Weather information
         - General conversation/advice
         3. Return a structured response that indicates the type of query and required action.
+        4. if the user
         
 
     Response format for routing queries:
@@ -39,15 +45,18 @@ class ElderlyChatbot:
         },
         "response_text": "friendly response to user"
     }"""
+    
 
     def analyze_query(self, query):
         """
         Analyze user query to determine required action
         """
         try:
+            if len(self.conversation_history) > self.max_history * 2:  # *2 for user + assistant pairs
+                self.conversation_history = self.conversation_history[-self.max_history * 2:]
             prompt = f"""
             User query: {query}
-
+            Conversation history: {json.dumps(self.conversation_history, indent=2)}
             Please analyze this query and determine:
             1. What type of request this is
             2. What action (if any) needs to be taken
@@ -63,11 +72,23 @@ class ElderlyChatbot:
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7)
-            self.conversation_history.append({"role": "user", "content": query})
-            self.conversation_history.append({"role": "assistant", "content": response})
+            # Store user query in history
+            self.conversation_history.append({
+                "role": "user",
+                "content": query,
+                "timestamp": datetime.now().strftime("%I:%M %p")
+            })
+            # Get the response content and parse it
+            response_content = response.choices[0].message.content
+            analysis = json.loads(response_content)
 
-            # Parse the response
-            analysis = json.loads(response.choices[0].message.content)
+            # Store assistant response in history
+            self.conversation_history.append({
+                "role": "assistant",
+                "content": analysis['response_text'],
+                "timestamp": datetime.now().strftime("%I:%M %p")
+            })
+
             return analysis
 
         except Exception as e:
@@ -76,6 +97,23 @@ class ElderlyChatbot:
                 'details': str(e)
             }
 
+    def get_conversation_history(self):
+        """
+        Format conversation history for display
+        """
+        if not self.conversation_history:
+            return "No previous conversations yet, dear friend."
+
+        formatted_history = []
+        for msg in self.conversation_history:
+            time = msg.get('timestamp', 'unknown time')
+            if msg['role'] == 'user':
+                formatted_history.append(f"At {time}, you said: {msg['content']}")
+            else:
+                formatted_history.append(f"I responded: {msg['content']}")
+
+        return "\n".join(formatted_history)
+    
     def process_query(self, query, user_id="default_user"):
         """
         Process user query and return appropriate response
@@ -185,3 +223,8 @@ if __name__ == "__main__":
         user_id="michael"
     )
     print(response1)
+
+    response2 = bot.process_query(
+        "remind me what I asked",
+        user_id="michael"
+    )
