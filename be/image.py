@@ -15,4 +15,4 @@ def get_image(item):
     # return random.choice(image_urls)
     return image_urls[0]
 
-# print(get_image('ryushen tan'))
+# print(get_image('mcgill'))

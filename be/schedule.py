@@ -1,5 +1,3 @@
-# calendar_gpt.py
-
 from openai import OpenAI
 
 from datetime import datetime
@@ -9,7 +7,7 @@ from dotenv import load_dotenv
 import pathlib
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-class CalendarGPT:
+class Calendaradvisor:
     def __init__(self, storage_path="calendar_storage"):
         self.storage_path = storage_path
         self._init_storage()
@@ -149,7 +147,7 @@ class CalendarGPT:
 
 def test_calendar_gpt():
     """Test function to demonstrate usage"""
-    calendar = CalendarGPT(storage_path="test_calendar_storage")
+    calendar = Calendaradvisor(storage_path="test_calendar_storage")
 
     print("\nTest 1 - delete an event:")
     test1 = calendar.process_calendar_query(

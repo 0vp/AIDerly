@@ -54,29 +54,30 @@ class WeatherAdvisor:
 
             # Create prompt for GPT
             prompt = f"""
-Current weather in Montreal:
-- Temperature: {weather['temperature']}°C (Feels like: {weather['feelsLike']}°C)
-- Humidity: {weather['humidity']}%
-- Wind Speed: {weather['windSpeed']} km/h
-- Precipitation Probability: {weather['precipitation']}%
+                Current weather in Montreal:
+                - Temperature: {weather['temperature']}°C (Feels like: {weather['feelsLike']}°C)
+                - Humidity: {weather['humidity']}%
+                - Wind Speed: {weather['windSpeed']} km/h
+                - Precipitation Probability: {weather['precipitation']}%
 
-As a caring advisor for elderly adults, provide:
-1. A brief weather summary
-2. Specific clothing recommendations
-3. Safety precautions based on current conditions
-4. Suggested activities that are appropriate for today's weather
-5. Any health-related advice considering the weather
+                As a caring advisor for elderly adults, provide:
+                1. current weather - categorized only for "sunny", "cloudy", "rainy", "snowy"
+                2. Specific clothing recommendations
+                3. Safety precautions based on current conditions
+                4. Suggested activities that are appropriate for today's weather
+                5. Any health-related advice considering the weather
 
-Format the response as a JSON with the following structure:
-{{
-    "weather_summary": "brief description",
-    "clothing_advice": ["item1", "item2", ...],
-    "safety_tips": ["tip1", "tip2", ...],
-    "recommended_activities": ["activity1", "activity2", ...],
-    "health_advice": ["advice1", "advice2", ...],
-    "timestamp": "current_time"
-}}
-"""
+
+                Format the response as a JSON with the following structure:
+                {{
+                    "current weather": "weather",
+                    "clothing_advice": ["item1", "item2", ...],
+                    "safety_tips": ["tip1", "tip2", ...],
+                    "recommended_activities": ["activity1", "activity2", ...],
+                    "health_advice": ["advice1", "advice2", ...],
+                    "timestamp": "current_time"
+                }}
+                """
 
             response = client.chat.completions.create(model="gpt-4",
             messages=[
@@ -101,15 +102,12 @@ Format the response as a JSON with the following structure:
             }
 
 def test_weather_advisor():
-    """Test function to demonstrate usage"""
     advisor = WeatherAdvisor()
 
-    # Test weather data
     print("\nFetching weather data:")
     weather_data = advisor.get_weather_data()
     print(weather_data)
 
-    # Test weather advice
     print("\nGetting weather advice:")
     advice = advisor.get_weather_advice()
     print(advice)
