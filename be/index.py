@@ -149,7 +149,7 @@ def handle_options(response):
     return response
 
 @app.route('/chatbot/<query>', methods=['GET'])
-def get_chatbot_response(query, user_id):
+def get_chatbot_response(query, user_id='default_user'):
     """
     Get chatbot response
     """
