@@ -1,6 +1,9 @@
-import Spline from '@splinetool/react-spline';
-import Speech from "./utils/Speech";
 import {useState, useEffect} from "react";
+import Spline from '@splinetool/react-spline';
+
+import Listen from "./utils/Listen";
+import Speech from "./utils/Speech";
+
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -48,6 +51,7 @@ export default function Home() {
             <div>
                 {decibel.toFixed(2)} dB
             </div>
+            <Listen />
         </>
     );
 }
