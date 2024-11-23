@@ -1,39 +1,57 @@
 import React, { useContext } from 'react';
 import { PopupContext } from '../PopupContext';
 
+export const handleCalendar = () => {
+    setIsPopupOpen(isPopupOpen);
+    console.log("hi");
+};
+
+export const handleSunny = () => {
+    simulateKeyPress('=');
+    setInterval(() => {
+        simulateKeyPress('=');
+    }, 5000);
+};
+
+export const handleRainy = () => {
+    simulateKeyPress(']');
+    setInterval(() => {
+        simulateKeyPress(']');
+    }, 3000);
+};
+
+export const handleSnowy = () => {
+    simulateKeyPress('-');
+    setInterval(() => {
+        simulateKeyPress('-');
+    }, 3000);
+};
+
+export const handleCloudy = () => {
+    simulateKeyPress('[');
+    setInterval(() => {
+        simulateKeyPress('[');
+    }, 3000);
+};
+
+export const handleWindy = () => {
+    simulateKeyPress('/');
+    setInterval(() => {
+        simulateKeyPress('/');
+    }, 3000);
+};
+
+export const handleMedicine = () => {
+};
+
+export const handleNews = () => {
+};
+
+
 const Actions = () => {
     const { isPopupOpen, setIsPopupOpen } = useContext(PopupContext);
 
-    const handleCalendar = () => {
-        setIsPopupOpen(isPopupOpen);
-        console.log("hi")
-    };
-
-    const handleSunny = () => {
-        return "=";
-    };
-
-    const handleRainy = () => {
-        return "]";
-    };
-
-    const handleSnowy = () => {
-        return "-";
-    };
-
-    const handleCloudy = () => {
-        return "[";
-    };
-
-    const handleWindy = () => {
-        return "/";
-    };
-
-    const handleMedicine = () => {
-    };
-
-    const handleNews = () => {
-    };
+    
 
     return (
         <div>
