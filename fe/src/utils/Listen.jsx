@@ -34,48 +34,61 @@ const Listen = () => {
         // call response on transcript, then reset transcript, then unpause
         let reply = "";
         if (transcript.length >= 5) {
-            const actions = {
-                calendar: Actions.handleCalendar,
-                medicine: Actions.handleMedicine,
-                news: Actions.handleNews,
-                picture: Actions.handleImage,
-                image: Actions.handleImage,
-                flip: Actions.handleFlip
-            };
 
-            Object.keys(actions).forEach(key => {
-                if (transcript.includes(key)) {
-                    actions[key]();
-                }
-            });
 
             if (transcript.includes('picture of')) {
                 let img = transcript.split('picture of')[1];
+                Actions.handleImage();
                 console.log('Taking picture... of', img);
                 let imageUrl = await getImageUrl(img);
                 console.log('Image URL:', imageUrl['image']);
                 setImageUrl(imageUrl['image']);
-            } else if (transcript.includes('close')) {
+            } else if (transcript.includes('image')){
+                let img = transcript.split('picture of')[1];
+                Actions.handleImage();
+                console.log('Showing Image...', img);
+                let imageUrl = await getImageUrl(img);
+                console.log('Image URL:', imageUrl['image']);
+                setImageUrl(imageUrl['image']);
+            }else if (transcript.includes("calendar")){
+                Actions.handleCalendar
+                reply = "Here is your calendar";
+            } else if (transcript.includes("medicine")) {
+                Actions.handleMedicine();
+                reply = "Here is your medicine information";
+            } else if (transcript.includes("news")) {
+                Actions.handleNews();
+                reply = "Here are the latest news updates";
+            } else if (transcript.includes("flip")) {
+                Actions.handleFlip();
+                reply = "HAYAAAA!";
+            }
+            else if (transcript.includes('close')) {
                 Actions.handleImage();
                 console.log('Closing popup...');
                 setPopupOpen(false);
-            } else {
+            }else if (transcript.includes('weather')) {
+                reply = await getReply({transcript});
+                if (reply.includes('rainy')) {
+                    Actions.handleRainy();
+                    reply = "It is raining outside";
+                } else if (reply.includes('sunny')) {
+                    Actions.handleSunny();
+                    reply = "It is sunny outside";
+                } else if (reply.includes('cloudy')) {
+                    Actions.handleCloudy();
+                    reply = "It is cloudy outside";
+                } else if (reply.includes('snowy')) {
+                    Actions.handleSnowy();
+                    reply = "It is snowing outside";
+                } else if (reply.includes('windy')) {
+                    Actions.handleWindy();
+                    reply = "It is windy outside";
+                }
+            }
+             else {
                 reply = await getReply(transcript);
             }
-            const weatherActions = {
-                rainy: Actions.handleRainy,
-                sunny: Actions.handleSunny,
-                cloudy: Actions.handleCloudy,
-                snowy: Actions.handleSnowy,
-                windy: Actions.handleWindy
-            };
-
-            Object.keys(weatherActions).forEach(key => {
-                if (reply.includes(key)) {
-                    weatherActions[key]();
-                }
-            });
-
             speak(reply);
             console.log({transcript, reply});
         }
