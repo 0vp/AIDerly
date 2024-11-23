@@ -35,6 +35,7 @@ export default function Home() {
             }
             
             const data = await response.json();
+            console.log(data);
             setList({
                 clothing_note: data.advice.clothing_advice,
                 safety_tips: data.advice.safety_tips,
