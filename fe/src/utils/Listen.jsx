@@ -39,12 +39,11 @@ const Listen = ({ setDecibel }) => {
 
 
             if (transcript.includes('picture of') || transcript.includes('image of')) {
-                let img = transcript.split('picture of')[1];
+                let img = transcript.split('picture of')[1] ? transcript.split('picture of')[1] : transcript.split('image of')[1];
                 Actions.handleImage();
-                console.log('Taking picture... of', img);
                 let imageUrl = await getImageUrl(img);
-                console.log('Image URL:', imageUrl['image']);
                 setImageUrl(imageUrl['image']);
+                reply = "Here is the image you requested";
             }else if (transcript.includes("calendar")){
                 Actions.handleCalendar
                 reply = "Here is your calendar";
