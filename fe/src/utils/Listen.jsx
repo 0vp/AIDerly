@@ -71,19 +71,14 @@ const Listen = () => {
                 reply = await getReply({transcript});
                 if (reply.includes('rainy')) {
                     Actions.handleRainy();
-                    reply = "It is raining outside";
                 } else if (reply.includes('sunny')) {
                     Actions.handleSunny();
-                    reply = "It is sunny outside";
                 } else if (reply.includes('cloudy')) {
                     Actions.handleCloudy();
-                    reply = "It is cloudy outside";
                 } else if (reply.includes('snowy')) {
                     Actions.handleSnowy();
-                    reply = "It is snowing outside";
                 } else if (reply.includes('windy')) {
                     Actions.handleWindy();
-                    reply = "It is windy outside";
                 }
             }
              else {
