@@ -52,8 +52,8 @@ export default function Home() {
             <div>
                 {decibel.toFixed(2)} dB
             </div>
-            <div className="absolute top-50">
-                <Popup className="" trigger={<button>Trigger</button>} position="top bottom">
+            <div className="absolute top-12 left-24">
+                <Popup className="" trigger={<button>Trigger</button>} position="bottom left">
                     <Schedule></Schedule>
                 </Popup>
             </div>
