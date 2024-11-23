@@ -5,10 +5,13 @@ import { getImageUrl } from '../components/ImagePopup';
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { getReply } from './Response';
+import { useSpeech } from './Speech';
 
 const Listen = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [popupOpen, setPopupOpen] = useState(false);
+    const { speak, decibel, loading, error } = useSpeech();
 
     const {
         transcript,
@@ -28,6 +31,7 @@ const Listen = () => {
 
     const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
+        let reply = "";
         if (transcript.includes('picture of')) {
             let img = transcript.split('picture of')[1];
             console.log('Taking picture... of', img);
@@ -37,6 +41,13 @@ const Listen = () => {
         } else if (transcript.includes('close')) {
             console.log('Closing popup...');
             setPopupOpen(false);
+        } else {
+            reply = getReply(transcript);
+        }
+
+        if (transcript.length >= 5) {
+            speak(reply);
+            console.log({transcript, reply});
         }
     }
 

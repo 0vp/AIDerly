@@ -1,12 +1,9 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 
-function Speech({ toSay, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, similarityBoost = 0, setDecibel }) {
+export const useSpeech = () => {
+    const [decibel, setDecibel] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [text, setText] = useState(toSay);
-
-    // const [decibel, setDecibel] = useState(null);
-
     const audioRef = useRef(null);
     const analyserRef = useRef(null);
     const audioContextRef = useRef(null);
@@ -23,7 +20,6 @@ function Speech({ toSay, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, simila
         source.connect(analyser);
         analyser.connect(audioContext.destination);
 
-        // analyze decibels
         analyzeDecibels(analyser);
     };
 
@@ -33,7 +29,6 @@ function Speech({ toSay, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, simila
         const calculateVolume = () => {
             analyser.getByteFrequencyData(dataArray);
 
-            // compute decibels
             const sum = dataArray.reduce((a, b) => a + b, 0);
             const average = sum / dataArray.length;
             const db = 20 * Math.log10(average || 1);
@@ -45,7 +40,7 @@ function Speech({ toSay, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, simila
         calculateVolume();
     };
 
-    const startStreaming = async () => {
+    const speak = async (text, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, similarityBoost = 0) => {
         setLoading(true);
         setError("");
 
@@ -90,34 +85,5 @@ function Speech({ toSay, voiceId = "iP95p4xoKVk53GoZ742B", stability = 0, simila
         }
     };
 
-    return (
-        <div className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md">
-            <h1 className="text-lg font-semibold text-gray-800 mb-4">ElevenLabs Speech Streaming</h1>
-
-            <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                placeholder="Enter text to synthesize..."
-                rows={3}
-            />
-
-            <button
-                onClick={startStreaming}
-                disabled={loading}
-                className={`px-6 py-2 font-medium text-white rounded-lg ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                    }`}
-            >
-                {loading ? "Generating..." : "Start Streaming"}
-            </button>
-
-            {error && <p className="mt-4 text-red-500 text-sm">{error}</p>}
-
-            {/* {decibel !== null && (
-                <p className="mt-4 text-green-500 text-sm">Decibel Level: {decibel.toFixed(2)} dB</p>
-            )} */}
-        </div>
-    );
+    return { speak, decibel, loading, error };
 };
-
-export default Speech;

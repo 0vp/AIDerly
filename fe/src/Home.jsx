@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import Spline from '@splinetool/react-spline';
 // import Listen from "./utils/Listen";
-import Speech from "./utils/Speech";
+// import {Speech} from "./utils/Speech";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Schedule from './components/schedule';
@@ -82,10 +82,10 @@ export default function Home() {
                 <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8]"></div>
             </div>
 
-            <Speech toSay={"hi darling"} setDecibel={setDecibel} />
+            {/* <Speech toSay={"hi darling"} setDecibel={setDecibel} />
             <div>
                 {decibel.toFixed(2)} dB
-            </div>
+            </div> */}
             <div className="absolute top-12 left-24">
                 
                 <button onClick={handleButtonClick}>
