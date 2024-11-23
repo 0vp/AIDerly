@@ -5,6 +5,7 @@ import Speech from "./utils/Speech";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Schedule from './components/schedule';
+import Listen from "./utils/Listen";
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -56,7 +57,7 @@ export default function Home() {
                     <Schedule></Schedule>
                 </Popup>
             </div>
-
+            <Listen />
         </>
     );
 }
