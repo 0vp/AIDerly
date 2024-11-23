@@ -108,7 +108,7 @@ export default function Home() {
         <>
 
             
-            <div className="w-[99vw] overflow-x-hidden h-screen bg-[#F8F8F8]">
+            <div className="overflow-x-hidden h-screen bg-[#F8F8F8]">
                 <Spline scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" />
                 <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8] px-36">
                     <div className="flex w-full justify-center">
