@@ -64,6 +64,12 @@ const Listen = ({ setDecibel }) => {
             } else if (transcript.includes("flip")) {
                 Actions.handleFlip();
                 reply = "HAYAAAA!";
+            } else if (transcript.includes("dance")) {
+                Actions.handleDance();
+                reply = "WOOHOO DANCE PARTY!";
+            } else if (transcript.includes("spin")) {
+                Actions.handleSpin();
+                reply = "SPINNING AROUND AND AROUUU I'M GETTING DIZZY!";
             }
             else if (transcript.includes('close')) {
                 Actions.handleImage();
