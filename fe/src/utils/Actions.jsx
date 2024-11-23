@@ -10,8 +10,8 @@ const simulateKeyPress = (key) => {
         // console.log('Key up:', key);
     }, 1);
 };
-export const handleCalendar = () => {
-    setIsPopupOpen(isPopupOpen);
+export const handleCalendar = (isCalendarOpen) => {
+    return !isCalendarOpen;
 };
 
 export const handleSunny = () => {

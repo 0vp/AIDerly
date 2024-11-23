@@ -10,6 +10,7 @@ from gpt import gpt_bp
 from weather import WeatherAdvisor
 from medicine import MedicineAdvisor
 from chatbot import ElderlyChatbot
+import json
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -144,6 +145,12 @@ def handle_options(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
 
     return response
+CALENDAR_FILE_PATH = r'C:\Users\Pengu\Documents\GitHub\AIDerly\be\calendar_storage\default_user_calendar.json'
+@app.route('/calendar', methods=['GET'])
+def load_calendar(user_id='default_user'):
+    with open(CALENDAR_FILE_PATH, 'r') as file:
+        calendar_data = json.load(file)
+    return jsonify(calendar_data)
 
 @app.route('/chatbot/<query>', methods=['GET'])
 def get_chatbot_response(query, user_id='default_user'):
