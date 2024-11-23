@@ -1,9 +1,9 @@
 import Spline from '@splinetool/react-spline';
 import Speech from "./utils/Speech";
+import Schedule from './components/Schedule';
 import {useState, useEffect} from "react";
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
-
 
     const simulateKeyPress = (key) => {
         const keyDownEvent = new KeyboardEvent('keydown', { key });
@@ -39,12 +39,12 @@ export default function Home() {
 
     return (
         <>
-            <button onClick={handleButtonClick}>Press 9</button>
             <Spline scene="https://prod.spline.design/DvEjptebRZFHNICp/scene.splinecode" />
             <Speech toSay={"hi darling"} setDecibel={setDecibel} />
             <div>
                 {decibel.toFixed(2)} dB
             </div>
+            <Schedule/>
         </>
     );
 }
