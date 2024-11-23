@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
 from functools import wraps
 import datetime
 import requests as req
@@ -7,7 +8,9 @@ from gpt import gpt_bp
 from image import get_image
 from gpt import gpt_bp
 from weather import WeatherAdvisor
+
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Register the schedule blueprint
 
@@ -24,7 +27,6 @@ def home():
     year = today.strftime("%Y")
 
     return 'AIDerly © Houtong Cats ' + year
-
 
 @app.route('/weather/advice', methods=['GET'])
 def get_weather_advice():
@@ -109,14 +111,24 @@ def test_calendar():
     })
 
 
-@app.route('/image/<imageName>', methods=['GET'])
+@app.route('/image/<imageName>', methods=['GET', 'OPTIONS'])
 def search_image(imageName):
     """
     Get an image from Yahoo search.
     """
+    # if request.method == 'OPTIONS':
+    #     response = make_response()
+
+    #     response.headers.add("Access-Control-Allow-Origin", "*")
+    #     response.headers.add("Access-Control-Allow-Methods", "GET")
+    #     response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    #     return response, 204
+
+    url = get_image(imageName)
+    print(url)
 
     return jsonify({
-        'image': get_image(imageName)
+        'image': url
     })
 
 @app.after_request
@@ -130,7 +142,5 @@ def handle_options(response):
 
     return response
 
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "regenerator-runtime/runtime.js";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { getImageUrl } from '../components/ImagePopup';
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const Listen = () => {
+    const [imageUrl, setImageUrl] = useState('');
+    const [popupOpen, setPopupOpen] = useState(false);
+
     const {
         transcript,
         listening,
@@ -19,10 +26,17 @@ const Listen = () => {
         SpeechRecognition.stopListening();
     }
 
-    const handlePause = () => {
+    const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
         if (transcript.includes('picture of')) {
-            console.log('Taking picture... of', transcript.split('picture of')[1]);
+            let img = transcript.split('picture of')[1];
+            console.log('Taking picture... of', img);
+            let imageUrl = await getImageUrl(img);
+            console.log('Image URL:', imageUrl['image']);
+            setImageUrl(imageUrl['image']);
+        } else if (transcript.includes('close')) {
+            console.log('Closing popup...');
+            setPopupOpen(false);
         }
     }
 
@@ -40,16 +54,30 @@ const Listen = () => {
     }, [listening]);
 
     useEffect(() => {
+        console.log('Transcript:', transcript);
+        if (imageUrl) {
+            console.log('Image URL:', imageUrl);
+            setPopupOpen(true);
+        }
+        console.log('Popup Open:', popupOpen);
+    }, [imageUrl]);
+
+    useEffect(() => {
         startListening();
     }, []);
 
     return (
-        <div>
-            {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
+        <div className='w-full h-screen'>
+            <p>Microphone: {listening ? 'on' : 'off'}</p>
             {/* <button onClick={startListening}>Start</button>
             <button onClick={stopListening}>Stop</button>
             <button onClick={resetTranscript}>Reset</button> */}
             <p>{transcript}</p>
+            <Popup open={popupOpen} onClose={() => {setImageUrl('')}} position="right center">
+                <div>
+                    <img src={imageUrl} alt="Generated" />
+                </div>
+            </Popup>
         </div>
     );
 };
