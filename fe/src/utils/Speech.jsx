@@ -120,7 +120,8 @@ export const useSpeech = () => {
                 const audioBlob = await response.blob();
                 const audio = new Audio(URL.createObjectURL(audioBlob));
                 audioRef.current = audio;
-
+                
+                setupAudioAnalysis(audio);
                 audio.play();
                 audio.onended = () => {
                     setLoading(false);
