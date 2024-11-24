@@ -10,6 +10,14 @@ import Listen from "./utils/Listen";
 import Camera from "./components/Camera";
 import "./font.css";
 
+function Logo() {
+    return (
+        <div className="flex absolute justify-center items-center w-full">
+            <img className="w-1/4" src="/logo.svg" alt="logo" />
+        </div>
+    );
+}
+
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -118,9 +126,8 @@ export default function Home() {
 
     return (
         <>
-
-            
             <div className="overflow-x-hidden h-screen bg-[#fbf1e5] p-5">
+                <Logo />
                 <Spline 
                     className="rounded-2xl"
                     scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" 
