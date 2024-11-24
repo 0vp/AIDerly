@@ -8,7 +8,7 @@ import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
-import { handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 } from "../Home";
+import { Home} from "../Home";
 
 const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
     const [speaking, setSpeaking] = useState(false);
@@ -56,15 +56,15 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
             }else if (transcript.includes("safety_tips")) {
-                handleSlidePopup2();
+                Home.handleSlidePopup2();
                 reply = "Here are the safety tips";
 
             }else if (transcript.includes("clothing note")) {
-                handleSlidePopup1();
+                Home.handleSlidePopup1();
                 reply = "Here is the clothing note";
 
             }else if (transcript.includes("activities")) {
-                handleSlidePopup3();
+                Home.handleSlidePopup3();
                 reply = "Here are the recommended activities";
 
             } else if (transcript.includes("news")) {
