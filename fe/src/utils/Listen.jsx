@@ -95,17 +95,21 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
             } else if (transcript.includes("spin")) {
                 Actions.handleSpin();
                 reply = "SPINNING AROUND AND AROUUUDADADADADAAAAAAA I'M GETTING DIZZY!";
-            } else if (transcript.includes("weather")) {
+            }
+            else if (transcript.includes('close')) {
+                // pass
+            }else if (transcript.includes('weather')) {
                 reply = await getReply(transcript);
-                if (reply.includes('rainy' || 'rain' || 'raining' || 'rainfall' || 'raindrops' || 'rainy!')) {
+                console.log(reply);
+                if (reply.includes('rainy')) {
                     Actions.handleRainy();
-                } else if (reply.includes('sunny' || 'sun' || 'sunshine' || 'sunny!')) {
+                } else if (reply.includes('sunny')) {
                     Actions.handleSunny();
-                } else if (reply.includes('cloudy' || 'clouds' || 'cloud' || 'cloudy!')) {
+                } else if (reply.includes('cloudy')) {
                     Actions.handleCloudy();
-                } else if (reply.includes('snowy' || 'snow' || 'snowfall' || 'snowy!')) {
+                } else if (reply.includes('snowy')) {
                     Actions.handleSnowy();
-                } else if (reply.includes('windy' || 'wind' || 'windy!')) {
+                } else if (reply.includes('windy')) {
                     Actions.handleWindy();
                 }
             }
