@@ -59,11 +59,11 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                 handleSlidePopup2();
                 reply = "Here are the safety tips";
 
-            }else if (transcript.includes("clothing_note")) {
+            }else if (transcript.includes("clothing note")) {
                 handleSlidePopup1();
                 reply = "Here is the clothing note";
 
-            }else if (transcript.includes("recommended_activities")) {
+            }else if (transcript.includes("activities")) {
                 handleSlidePopup3();
                 reply = "Here are the recommended activities";
 
