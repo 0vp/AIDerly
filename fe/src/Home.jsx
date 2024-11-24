@@ -193,7 +193,7 @@ export default function Home() {
                 </button> */}
                 <div
                     className={`absolute flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible1 ? "translate-x-0" : "-translate-x-[850px]"
                             }`}
                         >
                     <NotesApp clothing_note={list.clothing_note} />
@@ -201,7 +201,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-32 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible2 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible2 ? "translate-x-0" : "-translate-x-[850px]"
                             }`}
                         >
                     <Advice recommended_activities={list.recommended_activities} />
@@ -209,7 +209,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-48 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible3 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible3 ? "translate-x-0" : "-translate-x-[850px]"
                             }`}
                         >
                     <SafetyTips safety_tips={list.safety_tips} />
