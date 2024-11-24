@@ -88,22 +88,20 @@ export default function Home() {
         setI(i + 1);
     }, [decibel]);
     
-    // const handleButtonClick = () => {
-    //     simulateKeyPress('1');
-    // };
-
-
+    const handleButtonClick = () => {
+        simulateKeyPress('1');
+    };
     const handleSlidePopup1 = () => {
         setIsSlideVisible1(!isSlideVisible1);
-    };
+    }
 
     const handleSlidePopup2 = () => {
         setIsSlideVisible2(!isSlideVisible2);
-    };
+    }
 
     const handleSlidePopup3 = () => {
         setIsSlideVisible3(!isSlideVisible3);
-    };
+    }
 
     return (
         <>
@@ -173,7 +171,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
             <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
