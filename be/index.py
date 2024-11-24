@@ -145,7 +145,7 @@ def handle_options(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
 
     return response
-CALENDAR_FILE_PATH = r'C:\Users\Pengu\Documents\GitHub\AIDerly\be\calendar_storage\default_user_calendar.json'
+CALENDAR_FILE_PATH = r'./calendar_storage/default_user_calendar.json'
 @app.route('/calendar', methods=['GET'])
 def load_calendar(user_id='default_user'):
     with open(CALENDAR_FILE_PATH, 'r') as file:
