@@ -126,7 +126,10 @@ export const useSpeech = () => {
                 audio.play();
                 audio.onended = () => {
                     setSubtitles("");
-                    setLoading(false);
+                    
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 1500);
                 };
             } else {
                 const errorText = await response.text();

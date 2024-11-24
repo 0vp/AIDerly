@@ -38,8 +38,6 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
 
         let reply = "";
         if (transcript.length >= 5) {
-
-
             if (transcript.includes('picture of') || transcript.includes('image of')) {
                 let img = transcript.split('picture of')[1] ? transcript.split('picture of')[1] : transcript.split('image of')[1];
                 Actions.handleImage();
@@ -142,6 +140,8 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
     }, [decibel]);
 
     useEffect(() => {
+        if (loading) return;
+
         setTranscript(transcript);
     }, [transcript]);
 
