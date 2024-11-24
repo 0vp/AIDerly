@@ -9,6 +9,7 @@
     align-items: center;
 }
 .popup-content {
+    background-color: transparent;
     width: 50px;
     border-radius: 10px;
     display: grid;
