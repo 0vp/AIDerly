@@ -67,7 +67,6 @@ As a caring advisor for elderly adults, provide:
 3. Safety precautions based on current conditions
 4. Suggested activities that are appropriate for today's weather
 5. Any health-related advice considering the weather
-6. Make sure you include one of these keywords: sunny, cloudy, rainy, snowy, windy
 
 Format the response as a JSON with the following structure:
 {{
@@ -79,7 +78,7 @@ Format the response as a JSON with the following structure:
     "timestamp": "current_time"
 }}
 
-Ensure the response is a valid JSON string that can be parsed and that 6. is fulfilled.
+Ensure the response is a valid JSON string that can be parsed and that it contains one of these sunny, cloudy, rainy, snowy, windy.
 """
             # Get GPT response
             response = client.chat.completions.create(
