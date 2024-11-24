@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import Spline from '@splinetool/react-spline';
 import NotesApp from "./components/NoteApp";
 import Advice from "./components/Advice";
@@ -19,6 +19,8 @@ function Logo() {
 }
 
 export default function Home() {
+    const lastActionRef = useRef(0);
+
     const [muted, setMuted] = useState(false);
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -132,8 +134,12 @@ export default function Home() {
     // idle movement
     useEffect(() => {
         const interval = setInterval(() => {
-            const actions = ['z', 'u', 'x']
-            simulateKeyPress(actions[Math.floor(Math.random() * actions.length)]);
+            let now = Date.now();
+            if (now - lastActionRef.current > 5000) {
+                console.log(now, lastActionRef.current, now - lastActionRef.current);
+                const actions = ['z', 'u', 'x']
+                simulateKeyPress(actions[Math.floor(Math.random() * actions.length)]);
+            }
         }, 1500);
 
         return () => clearInterval(interval);
@@ -230,7 +236,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} muted={muted} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} muted={muted} lastActionRef={lastActionRef} />
             <button
                 onClick={handleInteractive}
                 style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}

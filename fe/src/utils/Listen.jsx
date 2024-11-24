@@ -9,7 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3, closeAllPopups, muted }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3, closeAllPopups, muted, lastActionRef }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -31,10 +31,13 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
     const stopListening = () => {
         SpeechRecognition.stopListening();
     }
-
+    
     const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
         if (loading || muted) return;
+
+        console.log("here");
+        lastActionRef.current = Date.now();
 
         let reply = "";
         if (transcript.length >= 5) {
