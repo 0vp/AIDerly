@@ -9,7 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3, closeAllPopups }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3, closeAllPopups, muted }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -34,7 +34,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
 
     const handlePause = async () => {
         // call response on transcript, then reset transcript, then unpause
-        if (loading) return;
+        if (loading || muted) return;
 
         let reply = "";
         if (transcript.length >= 5) {
@@ -140,7 +140,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
     }, [decibel]);
 
     useEffect(() => {
-        if (loading) return;
+        if (loading || muted) return;
 
         setTranscript(transcript);
     }, [transcript]);

@@ -19,6 +19,7 @@ function Logo() {
 }
 
 export default function Home() {
+    const [muted, setMuted] = useState(false);
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
     const [isSlideVisible1, setIsSlideVisible1] = useState(false); // State for first slide popup visibility
@@ -65,6 +66,10 @@ export default function Home() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const muteMicrophone = () => {
+        setMuted(!muted);
+    };
 
     const simulateKeyPress = (key) => {
         const keyDownEvent = new KeyboardEvent('keydown', { key });
@@ -141,7 +146,6 @@ export default function Home() {
                 </style>
 
                 <div className="flex absolute bottom-0 right-0 w-screen h-[100px] px-24 bg-[#fbf1e5] gap-4 items-center justify-center text-md text-[#603f20] indie-flower-regular">
-
                     <div className="flex items-center justify-start gap-4 w-1/2 ">
                         <div className="flex flex-col items-center gap-1">
                             <div className="rounded-full bg-[#cfb8cf] w-8 h-8 flex justify-center items-center">
@@ -220,13 +224,20 @@ export default function Home() {
                 </div>
             </div>
 
-            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} muted={muted} />
             <button
                 onClick={handleInteractive}
                 style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}
                 className="text-white hover:opacity-80 rounded-2xl  indie-flower-regular p-2 absolute right-6 bottom-24 mb-2"
             >
                 Interactive
+            </button>
+            <button
+                onClick={muteMicrophone}
+                style={{ backgroundColor: muted ? '#add8e6' : '#cfb8cf' }}
+                className="text-white hover:opacity-80 rounded-2xl  indie-flower-regular p-2 absolute left-6 bottom-24 mb-2"
+            >
+                {muted ? 'Unmute' : 'Mute'}
             </button>
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
