@@ -9,7 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, setIsSlideVisible1, setIsSlideVisible2, setIsSlideVisible3 }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
