@@ -8,14 +8,7 @@ import SafetyTips from "./components/Tips";
 import 'reactjs-popup/dist/index.css';
 import Listen from "./utils/Listen";
 import Camera from "./components/Camera";
-
-function Logo() {
-    return (
-        <div className="flex absolute justify-center items-center w-full">
-            <img className="w-1/4" src="/logo.svg" alt="logo" />
-        </div>
-    );
-}
+import "./font.css";
 
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
@@ -31,13 +24,11 @@ export default function Home() {
         weather_summary: ["It's sunny today", "Expect rain in the evening"]
     });
     const [interactive, setInteractive] = useState(false); // State for interactive mode
-    const [interactiveColour, setInteractiveColour] = useState('#cfb8cf'); // State for interactive button colour
     // subtitles
     const [transcript, setTranscript] = useState("");
     const [subtitles, setSubtitles] = useState("");
     const handleInteractive = () => {
         setInteractive(!interactive);
-        setInteractiveColour(interactive ? '#cfb8cf' : '#603f20');
     };
     const fetchData = async () => {
         try {
@@ -54,7 +45,7 @@ export default function Home() {
                 clothing_note: data.advice.clothing_advice,
                 safety_tips: data.advice.safety_tips,
                 recommended_activities: data.advice.recommended_activities,
-                health_advice: data.advice.health_advice,
+                health_advice: data.health_advice,
                 weather_summary: data.weather_summary // Correct access here
             });
             console.log('Data fetched successfully:', data);
@@ -114,27 +105,76 @@ export default function Home() {
     }
 
     return (
-        <>        
+        <>
+
+            
             <div className="overflow-x-hidden h-screen bg-[#fbf1e5] p-5">
-                <Logo />
                 <Spline 
                     className="rounded-2xl"
                     scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" 
                 />
-                <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#fbf1e5] px-36 text-[#603f20]">
-                    <div className="flex w-full justify-center">
-                        <span className="font-bold text-[#cfb8cf]">You</span>: {transcript}
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+                </style>
+
+                <div className="flex absolute bottom-0 right-0 w-screen h-[100px] px-36 bg-[#fbf1e5] gap-4 items-center justify-center text-md text-[#603f20] indie-flower-regular">
+
+                    <div className="flex items-center justify-start gap-4 w-full ">
+                        <div className="flex flex-col items-center gap-1">
+                            <div className="rounded-full bg-[#cfb8cf] w-10 h-10 flex justify-center items-center">
+                                <div className="bg-white w-6 h-6 rounded-full border-2 border-black"></div>
+                            </div>
+                            <p className="font-bold text-[#cfb8cf] text-md">Darling</p>
+                        </div>
+                        {subtitles && (
+                            <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md text-wrap overflow-hidden max-w-full">
+                                <div className="truncate">{subtitles}</div>
+                            </div>
+                        )}
                     </div>
-                    <div className="flex w-full justify-center">
-                        <span className="font-bold text-[#cfb8cf]">Darling</span>: {subtitles}
+                    <div className="flex items-center justify-end gap-4 w-full">
+                        {transcript && (
+                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right text-wrap overflow-hidde max-w-full">
+                                <div className="truncate">{transcript}</div>
+                            </div>
+                        )}
+                        <div className="flex flex-col items-center gap-1">
+                            <div className="rounded-full bg-[#cfb8cf] w-10 h-10 flex justify-center items-center">
+                                <div className="bg-white w-6 h-6 rounded-full border-2 border-black"></div>
+                            </div>
+                            <p className="font-bold text-[#cfb8cf] text-md">You</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            {/* <Speech toSay={"hi darling"} setDecibel={setDecibel} />
+            <div>
+                {decibel.toFixed(2)} dB
+            </div> */}
             <div className="absolute top-12 left-24">
+
+                {/* <button
+                    onClick={handleSlidePopup1}
+                    className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        >
+                    Toggle Slide Pop-Up 1
+                </button>
+                <button
+                    onClick={handleSlidePopup2}
+                    className="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        >
+                    Toggle Slide Pop-Up 2
+                </button>
+                <button
+                    onClick={handleSlidePopup3}
+                    className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+                        >
+                    Toggle Slide Pop-Up 3
+                </button> */}
                 <div
                     className={`absolute flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible1 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
+                            isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
                     <NotesApp clothing_note={list.clothing_note} />
@@ -142,7 +182,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-32 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible2 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
+                            isSlideVisible2 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
                     <Advice recommended_activities={list.recommended_activities} />
@@ -150,7 +190,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-48 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible3 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
+                            isSlideVisible3 ? "translate-x-0" : "-translate-x-[750px]"
                             }`}
                         >
                     <SafetyTips safety_tips={list.safety_tips} />
@@ -158,14 +198,7 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
-            <button
-                onClick={handleInteractive}
-                style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}
-                className="text-white hover:opacity-80 rounded-2xl p-2 absolute right-2 bottom-2"
-            >
-                Interactive
-            </button>
-
+            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
             </div>
