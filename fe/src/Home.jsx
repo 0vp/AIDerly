@@ -108,14 +108,17 @@ export default function Home() {
         <>
 
             
-            <div className="overflow-x-hidden h-screen bg-[#F8F8F8]">
-                <Spline scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" />
-                <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#F8F8F8] px-36">
+            <div className="overflow-x-hidden h-screen bg-[#fbf1e5] p-5">
+                <Spline 
+                    className="rounded-2xl"
+                    scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" 
+                />
+                <div className="absolute bottom-0 right-0 w-screen h-[100px] bg-[#fbf1e5] px-36 text-[#603f20]">
                     <div className="flex w-full justify-center">
-                        <span className="font-bold">You</span>: {transcript}
+                        <span className="font-bold text-[#cfb8cf]">You</span>: {transcript}
                     </div>
                     <div className="flex w-full justify-center">
-                        <span className="font-bold">Darling</span>: {subtitles}
+                        <span className="font-bold text-[#cfb8cf]">Darling</span>: {subtitles}
                     </div>
                 </div>
             </div>
