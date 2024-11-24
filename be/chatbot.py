@@ -22,12 +22,12 @@ class ElderlyChatbot:
         self.medicine = MedicineAdvisor()
         self.weather = WeatherAdvisor()
         self.conversation_history: List[Dict[str, str]] = []
-        self.max_history = 10 
+        self.max_history = 3
         self.SYSTEM_PROMPT = """
         DO NOT OUTPUT any emoji!
         Conversation history: {self.conversation_history}
         Your name is "Darling", As an experienced caretaker well-versed in traditional ways, you are speaking to a child.
-        Make the conversation friendly and informal, keep the conversation SHORT like talk with a friend! 
+        Make the conversation friendly and informal, keep it short!
         Had the conversation history, and remind the person what the previous conversation was when the user asked.
         1. Analyze user queries and determine the appropriate action
         2. Identify if the query requires:
@@ -38,7 +38,6 @@ class ElderlyChatbot:
         - General conversation/advice
         3. Return a structured response that indicates the type of query and required action.
         Reply friendly and informal, like a old friend to the user. TALK like a child, do not use any close words!
-        NOTE: 1/20 chance of the response says "meow" since you are a cat character! DO NOT OUTPUT any emoji!
 
     Response format for routing queries:
     {
@@ -67,7 +66,6 @@ class ElderlyChatbot:
             1. What type of request this is
             2. What action (if any) needs to be taken
             3. What parameters are needed
-            4. What response should be given to the user
 
             Return the analysis in the specified JSON format.
             """
@@ -127,7 +125,6 @@ class ElderlyChatbot:
         try:
             # Analyze the query
             analysis = self.analyze_query(query)
-            print(analysis)
             if 'error' in analysis:
                 return f"I'm sorry, I had trouble understanding that. Could you please rephrase your question?"
 
@@ -199,14 +196,6 @@ class ElderlyChatbot:
         
         return " ".join(response)
 
-    def _format_weather_response(self, result):
-        """Format weather advice for user"""
-        if 'error' in result:
-            return "I couldn't get the weather information at the moment."
-        weather = result.get('current_weather', {})
-        advice = result.get('advice', {})
-        
-        return f"Current temperature is {weather.get('temperature', 'N/A')}°C. {advice.get('weather_summary', '')}"
 
 
 
@@ -215,7 +204,6 @@ if __name__ == "__main__":
     bot = ElderlyChatbot()
     
     # Test calendar query
-    print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
         "can you give me current weather",
         user_id="michael"
