@@ -2,7 +2,7 @@ import React from "react";
 
 const Advice = ({ recommended_activities }) => {
   return (
-    <div className="h-full flex items-center justify-center bg-gradient-to-t from-[#a4c1ed]/80 via-[#84b1f5]/80 to-[#9db8e0]/90 -2 rounded-2xl p-6">
+    <div className="h-full flex items-center justify-center bg-gradient-to-t from-[#cfb8cf]/80 via-[#cfb8cf]/80 to-[#cfb8cf]/90 -2 rounded-2xl p-6">
       <div className="relative bg-white/70 p-6 rounded-lg shadow-xl w-[90%] max-w-4xl opacity-100">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
