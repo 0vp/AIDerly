@@ -8,7 +8,6 @@ import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
-import { Home} from "../Home";
 
 const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 }) => {
     const [speaking, setSpeaking] = useState(false);
