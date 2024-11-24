@@ -174,6 +174,10 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
+            
+            {/* <div className='w-1/4 h-fit absolute top-9 right-5'>
+                <Camera />
+            </div> */}
         </>
     );
 }
