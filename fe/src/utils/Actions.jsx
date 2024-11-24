@@ -72,6 +72,11 @@ export const handleDance = () => {
 export const handleSpin = () => {
     simulateKeyPress('s');
 };
+
+export const handleJump = () => {
+    simulateKeyPress('j');
+};
+
 export const handleMedicine = () => {
 };
 
