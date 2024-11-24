@@ -136,32 +136,32 @@ export default function Home() {
                     @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
                 </style>
 
-                <div className="flex absolute bottom-0 right-0 w-screen h-[100px] px-36 bg-[#fbf1e5] gap-4 items-center justify-center text-md text-[#603f20] indie-flower-regular">
+                <div className="flex absolute bottom-0 right-0 w-screen h-[100px] px-24 bg-[#fbf1e5] gap-4 items-center justify-center text-md text-[#603f20] indie-flower-regular">
 
-                    <div className="flex items-center justify-start gap-4 w-full ">
+                    <div className="flex items-center justify-start gap-4 w-1/2 ">
                         <div className="flex flex-col items-center gap-1">
-                            <div className="rounded-full bg-[#cfb8cf] w-10 h-10 flex justify-center items-center">
-                                <div className="bg-white w-6 h-6 rounded-full border-2 border-black"></div>
+                            <div className="rounded-full bg-[#cfb8cf] w-8 h-8 flex justify-center items-center">
+                                <div className="bg-white w-4 h-4 rounded-full border-2 border-black"></div>
                             </div>
-                            <p className="font-bold text-[#cfb8cf] text-md">Darling</p>
+                            <p className="font-bold text-[#cfb8cf] text-sm">Darling</p>
                         </div>
                         {subtitles && (
-                            <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md overflow-hidden max-w-full">
-                                <div className="truncate">{subtitles}</div>
+                            <div className="bg-white text-black px-4 text-sm py-2 rounded-full border-2 border-black shadow-md overflow-hidden">
+                                <div className="whitespace-nowrap text-ellipsis">{subtitles}</div>
                             </div>
                         )}
                     </div>
-                    <div className="flex items-center justify-end gap-4 w-full">
+                    <div className="flex items-center justify-end gap-4 w-1/2">
                         {transcript && (
-                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right  overflow-hidden max-w-full">
-                                <div className="truncate">{transcript}</div>
+                            <div className="bg-[#cfb8cf] text-white px-4 text-sm py-2 rounded-full border-2 border-white shadow-md text-right overflow-hidden">
+                                <div className="whitespace-nowrap text-ellipsis">{transcript}</div>
                             </div>
                         )}
                         <div className="flex flex-col items-center gap-1">
-                            <div className="rounded-full bg-[#cfb8cf] w-10 h-10 flex justify-center items-center">
-                                <div className="bg-white w-6 h-6 rounded-full border-2 border-black"></div>
+                            <div className="rounded-full bg-[#cfb8cf] w-8 h-8 flex justify-center items-center">
+                                <div className="bg-white w-4 h-4 rounded-full border-2 border-black"></div>
                             </div>
-                            <p className="font-bold text-[#cfb8cf] text-md">You</p>
+                            <p className="font-bold text-[#cfb8cf] text-sm">You</p>
                         </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@ export default function Home() {
             <button
                 onClick={handleInteractive}
                 style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}
-                className="text-white hover:opacity-80 rounded-2xl p-2 absolute right-2 bottom-2"
+                className="text-white hover:opacity-80 rounded-2xl  indie-flower-regular p-2 absolute right-6 bottom-24 mb-2"
             >
                 Interactive
             </button>
