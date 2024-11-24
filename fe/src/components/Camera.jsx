@@ -25,14 +25,15 @@ const Camera = ({boardRef}) => {
             const indexFingerTip = landmarks[0][8]; // Index finger tip landmark
             const canvas = canvasRef.current;
             cursorPos = {
-                x: -(indexFingerTip.x * canvas.width)*2,
-                y: (indexFingerTip.y * canvas.height)*2
+                x: -(indexFingerTip.x * window.innerWidth) ,
+                y: (indexFingerTip.y * window.innerHeight)
             };
             pointerRef.current.style.transform = `translate(${cursorPos.x}px, ${cursorPos.y}px)`;
             setMousePosition({ x: cursorPos.x, y: cursorPos.y });
             if (cursorPos.x <= -660 && cursorPos.x >= -690 && cursorPos.y >= 0 && cursorPos.y <= 400) {
                 Actions.handleBounce();
             }
+            // else if (cursorPos.x <= -660 )
         }
     };
     let cursorPos = { x: null, y: null }
