@@ -19,6 +19,7 @@ class ElderlyChatbot:
         self.conversation_history: List[Dict[str, str]] = []
         self.max_history = 10 
         self.SYSTEM_PROMPT = """
+        DO NOT OUTPUT any emoji!
         Conversation history: {self.conversation_history}
         Your name is "Darling", As an experienced caretaker well-versed in traditional ways, you are speaking to a child.
         Make the conversation friendly and informal, keep the conversation SHORT like talk with a friend! 
@@ -84,7 +85,7 @@ class ElderlyChatbot:
 
             # Store assistant response in history
             self.conversation_history.append({
-                "role": "assistant",
+                "role": "darling",
                 "content": analysis['response_text'],
                 "timestamp": datetime.now().strftime("%I:%M %p")
             })
@@ -224,10 +225,15 @@ if __name__ == "__main__":
     )
     print(response1)
 
-    print("\nTest 1 - Calendar Query:")
     response2 = bot.process_query(
         "knock knock! Hey!",
         user_id="michael"
     )
     print(response2)
+
+    response2 = bot.process_query(
+        "what did I asked you before",
+        user_id="michael"
+    )
+    print(response2)  
 
