@@ -94,7 +94,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                     setOpenCalendar(false);
                 }
             }else if (transcript.includes('weather')) {
-                reply = await getReply({transcript});
+                reply = await getReply(transcript);
                 console.log(reply);
                 if (reply.includes('rainy')) {
                     Actions.handleRainy();
