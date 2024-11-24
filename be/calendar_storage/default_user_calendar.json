@@ -35,9 +35,17 @@
     },
     {
       "day": "Sunday",
-      "events": []
+      "events": [
+        {
+          "time": "15:00",
+          "title": "Skiing",
+          "duration": "120",
+          "type": "exercise",
+          "notes": "Dress warmly and wear layered clothing"
+        }
+      ]
     }
   ],
-  "last_updated": "2024-11-23T17:54:09.590779",
-  "action_taken": "added swimming event at 15:00 on Tuesday"
+  "last_updated": "2024-11-23T19:53:32.044356",
+  "action_taken": "added skiing event at 15:00 on Sunday"
 }
