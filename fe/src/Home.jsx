@@ -210,8 +210,14 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} />
-            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
-            {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
+            <button
+                onClick={handleInteractive}
+                style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}
+                className="text-white hover:opacity-80 rounded-2xl p-2 absolute right-2 bottom-2"
+            >
+                Interactive
+            </button>
+                        {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
             </div>
             }
