@@ -6,14 +6,12 @@ import SafetyTips from "./components/Tips";
 // import Listen from "./utils/Listen";
 // import {Speech} from "./utils/Speech";
 import 'reactjs-popup/dist/index.css';
-import Schedule from './components/schedule';
 import Listen from "./utils/Listen";
 import Camera from "./components/Camera";
 
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
-    const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup
     const [isSlideVisible1, setIsSlideVisible1] = useState(false); // State for first slide popup visibility
     const [isSlideVisible2, setIsSlideVisible2] = useState(false); // State for second slide popup visibility
     const [isSlideVisible3, setIsSlideVisible3] = useState(false); // State for third slide popup visibility
@@ -24,11 +22,13 @@ export default function Home() {
         health_advice: ["Stay hydrated", "Take your vitamins"],
         weather_summary: ["It's sunny today", "Expect rain in the evening"]
     });
-
+    const [interactive, setInteractive] = useState(false); // State for interactive mode
     // subtitles
     const [transcript, setTranscript] = useState("");
     const [subtitles, setSubtitles] = useState("");
-    
+    const handleInteractive = () => {
+        setInteractive(!interactive);
+    };
     const fetchData = async () => {
         try {
             console.log('Waiting for response...');
@@ -174,10 +174,11 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
-            
-            {/* <div className='w-1/4 h-fit absolute top-9 right-5'>
+            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
+            {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
-            </div> */}
+            </div>
+            }
         </>
     );
 }

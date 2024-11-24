@@ -77,6 +77,10 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                     setPopupOpen(false);
                     setImageUrl('');
                 }
+                if(openCalendar){
+                    Actions.handleCalendar();
+                    setOpenCalendar(false);
+                }
             }else if (transcript.includes('weather')) {
                 reply = await getReply({transcript});
                 console.log(reply);
