@@ -77,9 +77,3 @@ export const handleJump = () => {
     simulateKeyPress('j');
 };
 
-export const handleMedicine = () => {
-};
-
-export const handleNews = () => {
-};
-

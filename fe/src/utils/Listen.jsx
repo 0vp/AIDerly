@@ -106,10 +106,13 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 } else if (reply.includes('sunny')) {
                     Actions.handleSunny();
                 } else if (reply.includes('cloudy')) {
+                    console.log("brrr");
                     Actions.handleCloudy();
                 } else if (reply.includes('snowy')) {
                     Actions.handleSnowy();
                 } else if (reply.includes('windy')) {
+                    Actions.handleWindy();
+                } else if (reply.includes('wind')) {
                     Actions.handleWindy();
                 }
             }
