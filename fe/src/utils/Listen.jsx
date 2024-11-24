@@ -9,7 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles, setIsSlideVisible1, setIsSlideVisible2, setIsSlideVisible3 }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -54,16 +54,16 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, setIsSlideVisible1, s
                 setMedicine(!medicine);
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
-            }else if (transcript.includes("safety_tips")) {
-                setIsSlideVisible2(!isSlideVisible2);
+            }else if (transcript.includes("safety tip")) {
+                handleSlidePopup2();
                 reply = "Here are the safety tips";
 
-            }else if (transcript.includes("clothing note")) {
-                setIsSlideVisible1(!isSlideVisible1);
+            }else if (transcript.includes("clothing")) {
+                handleSlidePopup1();
                 reply = "Here is the clothing note";
 
             }else if (transcript.includes("activities")) {
-                setIsSlideVisible3(!isSlideVisible3);
+                handleSlidePopup3();
                 reply = "Here are the recommended activities";
 
             } else if (transcript.includes("news")) {
