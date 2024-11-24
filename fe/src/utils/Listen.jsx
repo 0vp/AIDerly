@@ -50,7 +50,12 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
             }else if (transcript.includes("calendar")){
                 setOpenCalendar(!openCalendar);
                 Actions.handleCalendar();
-                reply = "Here is your calendar";
+
+                if (!openCalendar) {
+                    reply = "Here is your calendar";
+                } else {
+                    reply = "Closing calendar";
+                }
 
             } else if (transcript.includes('close')){
                 closeAllPopups();
@@ -83,10 +88,9 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 handleSlidePopup1();
                 reply = "Here is the clothing note";
 
-            }else if (transcript.includes("activities")) {
+            } else if (transcript.includes("activities")) {
                 handleSlidePopup2();
                 reply = "Here are the recommended activities";
-
             } else if (transcript.includes("news")) {
                 Actions.handleNews();
                 reply = "Here are the latest news updates";
