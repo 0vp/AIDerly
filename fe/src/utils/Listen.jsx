@@ -114,9 +114,9 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
              else {
                 reply = await getReply(transcript);
             }
-
-            speak(reply);
+            
             setSubtitles(reply);
+            speak(reply, setSubtitles);
             console.log({transcript, reply});
         }
     }
@@ -163,7 +163,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
             <button onClick={resetTranscript}>Reset</button> */}
             {/* <p>{transcript}</p> */}
             <Popup open={popupOpen} onClose={() => {setImageUrl('')}} position="right center">
-                <div className='flex w-full bg-red-400 items-center justify-center'>
+                <div className='flex w-full items-center justify-center'>
                     <img className='w-full' src={imageUrl} alt="Generated" />
                 </div>
             </Popup>

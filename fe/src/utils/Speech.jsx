@@ -42,7 +42,7 @@ export const useSpeech = () => {
         calculateVolume();
     };
 
-    // const speak = async (text, voiceId = "cgSgspJ2msm6clMCkdW9", stability = 0.5, similarityBoost = 0) => {
+    // const speak = async (text, setSubtitles, voiceId = "cgSgspJ2msm6clMCkdW9", stability = 0.5, similarityBoost = 0) => {
     //     if (loading) return;
 
     //     setLoading(true);
@@ -78,6 +78,7 @@ export const useSpeech = () => {
     //             setupAudioAnalysis(audio);
     //             audio.play();
     //             audio.onended = () => {
+    //                 setSubtitles("");
     //                 setLoading(false);
     //             };
     //         } else {
@@ -91,7 +92,7 @@ export const useSpeech = () => {
     //     }
     // };
 
-    const speak = async (text, voice = "nova", model = "tts-1") => {
+    const speak = async (text, setSubtitles, voice = "nova", model = "tts-1") => {
         if (loading) return;
 
         setLoading(true);
@@ -124,6 +125,7 @@ export const useSpeech = () => {
                 setupAudioAnalysis(audio);
                 audio.play();
                 audio.onended = () => {
+                    setSubtitles("");
                     setLoading(false);
                 };
             } else {
