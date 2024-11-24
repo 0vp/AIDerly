@@ -88,7 +88,11 @@ export default function Home() {
         }
         setI(i + 1);
     }, [decibel]);
-    
+    const closeAllPopups = () => {
+        setIsSlideVisible1(false);
+        setIsSlideVisible2(false);
+        setIsSlideVisible3(false);
+    }
     const handleButtonClick = () => {
         simulateKeyPress('1');
     };
@@ -127,14 +131,14 @@ export default function Home() {
                             <p className="font-bold text-[#cfb8cf] text-md">Darling</p>
                         </div>
                         {subtitles && (
-                            <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md text-wrap overflow-hidden max-w-full">
+                            <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md overflow-hidden max-w-full">
                                 <div className="truncate">{subtitles}</div>
                             </div>
                         )}
                     </div>
                     <div className="flex items-center justify-end gap-4 w-full">
                         {transcript && (
-                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right text-wrap overflow-hidde max-w-full">
+                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right  overflow-hidden max-w-full">
                                 <div className="truncate">{transcript}</div>
                             </div>
                         )}
@@ -197,7 +201,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3 } closeAllPopups={closeAllPopups} />
             <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
