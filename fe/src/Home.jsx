@@ -90,17 +90,17 @@ export default function Home() {
     // const handleButtonClick = () => {
     //     simulateKeyPress('1');
     // };
-    function handleSlidePopup1() {
-        setIsSlideVisible1(!isSlideVisible1);
-    }
+    // function handleSlidePopup1() {
+    //     setIsSlideVisible1(!isSlideVisible1);
+    // }
 
-    function handleSlidePopup2() {
-        setIsSlideVisible2(!isSlideVisible2);
-    }
+    // function handleSlidePopup2() {
+    //     setIsSlideVisible2(!isSlideVisible2);
+    // }
 
-    function handleSlidePopup3() {
-        setIsSlideVisible3(!isSlideVisible3);
-    }
+    // function handleSlidePopup3() {
+    //     setIsSlideVisible3(!isSlideVisible3);
+    // }
 
     return (
         <>
@@ -169,7 +169,7 @@ export default function Home() {
                     <SafetyTips safety_tips={list.safety_tips} />
                 </div>
             </div>
-            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
+            <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
         </>
     );
 }

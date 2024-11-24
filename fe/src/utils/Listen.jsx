@@ -8,9 +8,9 @@ import 'reactjs-popup/dist/index.css';
 import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
-import Home from "../Home";
+import { Home} from "../Home";
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -55,16 +55,16 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                 setMedicine(!medicine);
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
-            }else if (transcript.includes("safety tips")) {
-                Home.handleSlidePopup2();
+            }else if (transcript.includes("safety_tips")) {
+                setIsSlideVisible2(!isSlideVisible2);
                 reply = "Here are the safety tips";
 
             }else if (transcript.includes("clothing note")) {
-                Home.handleSlidePopup1();
+                setIsSlideVisible1(!isSlideVisible1);
                 reply = "Here is the clothing note";
 
             }else if (transcript.includes("activities")) {
-                Home.handleSlidePopup3();
+                setIsSlideVisible3(!isSlideVisible3);
                 reply = "Here are the recommended activities";
 
             } else if (transcript.includes("news")) {
