@@ -9,6 +9,14 @@ import 'reactjs-popup/dist/index.css';
 import Listen from "./utils/Listen";
 import Camera from "./components/Camera";
 
+function Logo() {
+    return (
+        <div className="flex absolute justify-center items-center w-full">
+            <img className="w-1/4" src="/logo.svg" alt="logo" />
+        </div>
+    );
+}
+
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
     const [i, setI] = useState(0);
@@ -104,10 +112,9 @@ export default function Home() {
     }
 
     return (
-        <>
-
-            
+        <>        
             <div className="overflow-x-hidden h-screen bg-[#fbf1e5] p-5">
+                <Logo />
                 <Spline 
                     className="rounded-2xl"
                     scene="https://prod.spline.design/SUSlutr2kTx8zUia/scene.splinecode" 
@@ -172,7 +179,7 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
-            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 text-white absolute right-2 bottom-2">Interactive</button>
+            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 absolute right-2 bottom-2">Interactive</button>
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
             </div>
