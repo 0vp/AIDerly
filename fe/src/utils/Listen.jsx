@@ -65,6 +65,9 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
             } else if (transcript.includes('bounce')){
                 Actions.handleBounce();
                 reply = "BOUNCING BOING!";
+            }   else if (transcript.includes("play dead")) {
+                Actions.handlePlayDead();
+                reply = "i'm dead! ahhh";
             }else if (transcript.includes("medicine")) {
                 setMedicine(!medicine);
                 Actions.handleMedicine();

@@ -22,6 +22,10 @@ export const handleSunny = () => {
     return '=';
 };
 
+export const handlePlayDead = () => {
+    simulateKeyPress('Y');
+};
+
 export const handleRainy = () => {
     simulateKeyPress(']');
     setTimeout(() => {

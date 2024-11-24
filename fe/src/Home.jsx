@@ -129,8 +129,14 @@ export default function Home() {
         setIsSlideVisible3(!isSlideVisible3);
     }
 
+    // idle movement
     useEffect(() => {
-        simulateKeyPress('Tab');
+        const interval = setInterval(() => {
+            const actions = ['z', 'u', 'x']
+            simulateKeyPress(actions[Math.floor(Math.random() * actions.length)]);
+        }, 1500);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (
