@@ -80,12 +80,20 @@ export default function Home() {
     };
 
     const handleDecibleLevel = (decibel) => {
-        if (decibel >= 25) {
+        if (decibel >= 20 && decibel < 25) {
+            simulateKeyPress('1');
+            simulateKeyPress('3');
+        }else if (decibel >= 25) {
             simulateKeyPress('1');
             simulateKeyPress('4');
-        } else{
+
+        }else if (decibel >= 10 && decibel < 20) {
             simulateKeyPress('1');
             simulateKeyPress('0');
+        }
+        else{
+            simulateKeyPress('1');
+            simulateKeyPress('2');
         }
     };
 
@@ -96,7 +104,11 @@ export default function Home() {
         }
         setI(i + 1);
     }, [decibel]);
-    
+    const closeAllPopups = () => {
+        setIsSlideVisible1(false);
+        setIsSlideVisible2(false);
+        setIsSlideVisible3(false);
+    }
     const handleButtonClick = () => {
         simulateKeyPress('1');
     };
@@ -134,15 +146,15 @@ export default function Home() {
                             <p className="font-bold text-[#cfb8cf] text-md">Darling</p>
                         </div>
                         {subtitles && (
-                            <div className="bg-white text-black lg:text-sm xl:text-xs px-6 py-3 rounded-full border-2 border-black shadow-md overflow-hidden">
+                            <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md overflow-hidden max-w-full">
                                 <div className="truncate">{subtitles}</div>
                             </div>
                         )}
                     </div>
                     <div className="flex items-center justify-end gap-4 w-full">
                         {transcript && (
-                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right  overflow-hidden">
-                                <div className="truncate lg:text-sm 3xl:text-[4px]">{transcript}</div>
+                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right  overflow-hidden max-w-full">
+                                <div className="truncate">{transcript}</div>
                             </div>
                         )}
                         <div className="flex flex-col items-center gap-1">
