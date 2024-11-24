@@ -7,9 +7,14 @@ from medicine import MedicineAdvisor
 from weather import WeatherAdvisor
 from typing import List, Dict
 from datetime import datetime
+import requests as req
 import os
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+weather_api_key=os.getenv("WEATHER_API_KEY")
+def weather(location):
+    attempt = req.get(f'http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={location}&aqi=no')
+    return attempt.json()
 
 class ElderlyChatbot:
     def __init__(self):
@@ -150,23 +155,15 @@ class ElderlyChatbot:
                         result = self.calendar.process_calendar_query(query, user_id)
                         return f"{analysis['response_text']} {self._format_calendar_response(result)}"
                 
-            elif analysis['query_type'] == 'medicine':
-                if analysis['action_needed']:
-                    med_result = self.medicine.check_medications(query)
-                    if analysis['parameters'].get('add_to_calendar', False):
-                        self.medicine.schedule_medication(user_id, med_result)
-                    return f"{analysis['response_text']} {self._format_medicine_response(med_result)}"
                 
             elif analysis['query_type'] == 'weather':
                 if analysis['action_needed']:
-                    weather_result = self.weather.get_weather_data()
-                    weather_advice = self.weather.get_weather_advice()
+                    # weather_result = self.weather.get_weather_data()
+                    weather_result = weather("Montreal")
                     prompt = f"""
                     weather result is {weather_result}
-                    weather advice is {weather_advice}
                     return two sentence about the current weather and tips for elderly adults 
                     """
-
                     response = client.chat.completions.create(model="gpt-4o-mini",
                     messages=[
                         {"role": "system", "content": self.SYSTEM_PROMPT},
@@ -220,20 +217,10 @@ if __name__ == "__main__":
     # Test calendar query
     print("\nTest 1 - Calendar Query:")
     response1 = bot.process_query(
-        "hello how are you",
+        "can you give me current weather",
         user_id="michael"
     )
     print(response1)
 
-    response2 = bot.process_query(
-        "knock knock! Hey!",
-        user_id="michael"
-    )
-    print(response2)
 
-    response2 = bot.process_query(
-        "what did I asked you before",
-        user_id="michael"
-    )
-    print(response2)  
 
