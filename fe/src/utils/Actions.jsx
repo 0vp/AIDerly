@@ -16,37 +16,38 @@ export const handleCalendar = (isCalendarOpen) => {
 
 export const handleSunny = () => {
     simulateKeyPress('=');
-    setInterval(() => {
+    setTimeout(() => {
         simulateKeyPress('=');
     }, 5000);
+    return '=';
 };
 
 export const handleRainy = () => {
     simulateKeyPress(']');
-    setInterval(() => {
+    setTimeout(() => {
         simulateKeyPress(']');
-    }, 3000);
+    }, 5000);
 };
 
 export const handleSnowy = () => {
     simulateKeyPress('-');
-    setInterval(() => {
+    setTimeout(() => {
         simulateKeyPress('-');
-    }, 3000);
+    }, 5000);
 };
 
 export const handleCloudy = () => {
     simulateKeyPress('[');
-    setInterval(() => {
+    setTimeout(() => {
         simulateKeyPress('[');
-    }, 3000);
+    }, 5000);
 };
 
 export const handleWindy = () => {
     simulateKeyPress('/');
-    setInterval(() => {
+    setTimeout(() => {
         simulateKeyPress('/');
-    }, 3000);
+    }, 5000);
 };
 
 export const handleWink = () => {

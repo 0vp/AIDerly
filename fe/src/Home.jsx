@@ -124,6 +124,10 @@ export default function Home() {
         setIsSlideVisible3(!isSlideVisible3);
     }
 
+    useEffect(() => {
+        simulateKeyPress('Tab');
+    }, []);
+
     return (
         <>
             <div className="flex overflow-x-hidden h-screen bg-[#fbf1e5] p-5 justify-center">
