@@ -49,6 +49,14 @@ export const handleWindy = () => {
     }, 3000);
 };
 
+export const handleWink = () => {
+    simulateKeyPress('w');
+};
+
+export const handleBounce = () => {
+    simulateKeyPress('b');
+};
+
 export const handleImage = () => {
     simulateKeyPress('p');
 };

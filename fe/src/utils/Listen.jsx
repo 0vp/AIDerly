@@ -50,7 +50,11 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                 setOpenCalendar(!openCalendar);
                 Actions.handleCalendar
                 reply = "Here is your calendar";
-            } else if (transcript.includes("medicine")) {
+            } else if (transcript.includes('bounce')){
+                Actions.handleBounce();
+                reply = "BOUNCING BOING!";
+            
+            }else if (transcript.includes("medicine")) {
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
             } else if (transcript.includes("news")) {
