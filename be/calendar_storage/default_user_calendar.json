@@ -23,7 +23,15 @@
     },
     {
       "day": "Thursday",
-      "events": []
+      "events": [
+        {
+          "time": "17:00",
+          "title": "Driving",
+          "duration": "60",
+          "type": "hobby",
+          "notes": "Remember to take your driver's license and check the car's fuel"
+        }
+      ]
     },
     {
       "day": "Friday",
@@ -46,6 +54,6 @@
       ]
     }
   ],
-  "last_updated": "2024-11-23T19:53:32.044356",
-  "action_taken": "added skiing event at 15:00 on Sunday"
+  "last_updated": "2024-11-23T23:47:04.781499",
+  "action_taken": "added driving on Thursday at 17:00"
 }

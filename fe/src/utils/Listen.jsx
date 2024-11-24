@@ -9,7 +9,7 @@ import { getReply } from './Response';
 import { useSpeech } from './Speech';
 import Schedule from '../components/schedule';
 
-const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3 }) => {
+const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, handleSlidePopup2, handleSlidePopup3, closeAllPopups }) => {
     const [speaking, setSpeaking] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [openCalendar, setOpenCalendar] = useState(false);
@@ -50,8 +50,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 setOpenCalendar(!openCalendar);
                 Actions.handleCalendar();
                 reply = "Here is your calendar";
-<<<<<<< Updated upstream
-=======
+
             } else if (transcript.includes('close')){
                 closeAllPopups();
                 setOpenCalendar(false);
@@ -65,7 +64,6 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                     Actions.handleCalendar();
                     setOpenCalendar(false);
                 }
->>>>>>> Stashed changes
             } else if (transcript.includes('bounce')){
                 Actions.handleBounce();
                 reply = "BOUNCING BOING!";
@@ -118,9 +116,9 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
              else {
                 reply = await getReply(transcript);
             }
-
-            speak(reply);
+            
             setSubtitles(reply);
+            speak(reply, setSubtitles);
             console.log({transcript, reply});
         }
     }
@@ -167,7 +165,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
             <button onClick={resetTranscript}>Reset</button> */}
             {/* <p>{transcript}</p> */}
             <Popup open={popupOpen} onClose={() => {setImageUrl('')}} position="right center">
-                <div className='flex w-full bg-red-400 items-center justify-center'>
+                <div className='flex w-full items-center justify-center'>
                     <img className='w-full' src={imageUrl} alt="Generated" />
                 </div>
             </Popup>
