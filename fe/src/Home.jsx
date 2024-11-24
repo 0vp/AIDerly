@@ -72,12 +72,20 @@ export default function Home() {
     };
 
     const handleDecibleLevel = (decibel) => {
-        if (decibel >= 25) {
+        if (decibel >= 20 && decibel < 25) {
+            simulateKeyPress('1');
+            simulateKeyPress('3');
+        }else if (decibel >= 25) {
             simulateKeyPress('1');
             simulateKeyPress('4');
-        } else{
+
+        }else if (decibel >= 10 && decibel < 20) {
             simulateKeyPress('1');
             simulateKeyPress('0');
+        }
+        else{
+            simulateKeyPress('1');
+            simulateKeyPress('2');
         }
     };
 
