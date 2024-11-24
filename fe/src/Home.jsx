@@ -87,20 +87,20 @@ export default function Home() {
         setI(i + 1);
     }, [decibel]);
     
-    // const handleButtonClick = () => {
-    //     simulateKeyPress('1');
-    // };
-    // function handleSlidePopup1() {
-    //     setIsSlideVisible1(!isSlideVisible1);
-    // }
+    const handleButtonClick = () => {
+        simulateKeyPress('1');
+    };
+    const handleSlidePopup1 = () => {
+        setIsSlideVisible1(!isSlideVisible1);
+    }
 
-    // function handleSlidePopup2() {
-    //     setIsSlideVisible2(!isSlideVisible2);
-    // }
+    const handleSlidePopup2 = () => {
+        setIsSlideVisible2(!isSlideVisible2);
+    }
 
-    // function handleSlidePopup3() {
-    //     setIsSlideVisible3(!isSlideVisible3);
-    // }
+    const handleSlidePopup3 = () => {
+        setIsSlideVisible3(!isSlideVisible3);
+    }
 
     return (
         <>
