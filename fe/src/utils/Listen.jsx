@@ -55,7 +55,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles }) => {
                 setMedicine(!medicine);
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
-            }else if (transcript.includes("safety_tips")) {
+            }else if (transcript.includes("safety tips")) {
                 Home.handleSlidePopup2();
                 reply = "Here are the safety tips";
 

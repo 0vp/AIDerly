@@ -90,19 +90,17 @@ export default function Home() {
     // const handleButtonClick = () => {
     //     simulateKeyPress('1');
     // };
-
-
-    const handleSlidePopup1 = () => {
+    function handleSlidePopup1() {
         setIsSlideVisible1(!isSlideVisible1);
-    };
+    }
 
-    const handleSlidePopup2 = () => {
+    function handleSlidePopup2() {
         setIsSlideVisible2(!isSlideVisible2);
-    };
+    }
 
-    const handleSlidePopup3 = () => {
+    function handleSlidePopup3() {
         setIsSlideVisible3(!isSlideVisible3);
-    };
+    }
 
     return (
         <>
