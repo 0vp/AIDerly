@@ -129,7 +129,9 @@ const Camera = ({boardRef}) => {
             <div className="flex relative items-center justify-center w-full h-64">
                 <video className="absolute invisible w-full h-full top-0 left-0" ref={videoRef} autoPlay playsInline></video>
                 <canvas className="absolute w-full h-full top-0 left-0 bg-transparent z-20" ref={canvasRef}></canvas>
-                <div className="absolute bg-black w-4 h-4 rounded-full" ref={pointerRef}></div>
+                <div className="absolute text-5xl w-4 h-4 rounded-full" ref={pointerRef}>
+                    🤚
+                </div>
             </div>
         </div>
     );   

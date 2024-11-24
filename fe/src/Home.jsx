@@ -12,8 +12,8 @@ import "./font.css";
 
 function Logo() {
     return (
-        <div className="flex absolute justify-center items-center w-full">
-            <img className="w-1/4" src="/logo.svg" alt="logo" />
+        <div className="flex absolute justify-center items-center">
+            <img className="w-2/3" src="/logo.svg" alt="logo" />
         </div>
     );
 }
@@ -124,9 +124,13 @@ export default function Home() {
         setIsSlideVisible3(!isSlideVisible3);
     }
 
+    useEffect(() => {
+        simulateKeyPress('Tab');
+    }, []);
+
     return (
         <>
-            <div className="overflow-x-hidden h-screen bg-[#fbf1e5] p-5">
+            <div className="flex overflow-x-hidden h-screen bg-[#fbf1e5] p-5 justify-center">
                 <Logo />
                 <Spline 
                     className="rounded-2xl"

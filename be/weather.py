@@ -78,7 +78,7 @@ Format the response as a JSON with the following structure:
     "timestamp": "current_time"
 }}
 
-Ensure the response is a valid JSON string that can be parsed.
+Ensure the response is a valid JSON string that can be parsed and that it contains one of these sunny, cloudy, rainy, snowy, windy.
 """
             # Get GPT response
             response = client.chat.completions.create(
