@@ -1,0 +1,9 @@
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase&family=Englebert&family=Indie+Flower&family=Schoolbell&display=swap');
+
+.indie-flower-regular {
+    font-family: "Delius Unicase", cursive;
+    font-weight: 700;
+    font-style: normal;
+}
+
