@@ -217,7 +217,7 @@ export default function Home() {
             >
                 Interactive
             </button>
-                        {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
+            {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
             </div>
             }
