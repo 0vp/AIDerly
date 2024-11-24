@@ -50,6 +50,22 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 setOpenCalendar(!openCalendar);
                 Actions.handleCalendar();
                 reply = "Here is your calendar";
+<<<<<<< Updated upstream
+=======
+            } else if (transcript.includes('close')){
+                closeAllPopups();
+                setOpenCalendar(false);
+                if (popupOpen) {
+                    Actions.handleImage();
+                    console.log('Closing popup...');
+                    setPopupOpen(false);
+                    setImageUrl('');
+                }
+                if(openCalendar){
+                    Actions.handleCalendar();
+                    setOpenCalendar(false);
+                }
+>>>>>>> Stashed changes
             } else if (transcript.includes('bounce')){
                 Actions.handleBounce();
                 reply = "BOUNCING BOING!";
@@ -83,16 +99,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 reply = "SPINNING AROUND AND AROUUUDADADADADAAAAAAA I'M GETTING DIZZY!";
             }
             else if (transcript.includes('close')) {
-                if (popupOpen) {
-                    Actions.handleImage();
-                    console.log('Closing popup...');
-                    setPopupOpen(false);
-                    setImageUrl('');
-                }
-                if(openCalendar){
-                    Actions.handleCalendar();
-                    setOpenCalendar(false);
-                }
+                // pass
             }else if (transcript.includes('weather')) {
                 reply = await getReply(transcript);
                 console.log(reply);
@@ -164,7 +171,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                     <img className='w-full' src={imageUrl} alt="Generated" />
                 </div>
             </Popup>
-            <Popup open={openCalendar} position="right center">
+            <Popup open={openCalendar} position="right center" contentStyle={{ background: 'transparent', border: 'none' }}>
                 <Schedule></Schedule>
             </Popup>
         </div>

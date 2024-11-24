@@ -127,15 +127,24 @@ export default function Home() {
                             <p className="font-bold text-[#cfb8cf] text-md">Darling</p>
                         </div>
                         {subtitles && (
+<<<<<<< Updated upstream
                             <div className="bg-white text-black px-6 py-3 rounded-full border-2 border-black shadow-md text-wrap overflow-hidden max-w-full">
+=======
+                            <div className="bg-white text-black lg:text-sm xl:text-xs px-6 py-3 rounded-full border-2 border-black shadow-md overflow-hidden">
+>>>>>>> Stashed changes
                                 <div className="truncate">{subtitles}</div>
                             </div>
                         )}
                     </div>
                     <div className="flex items-center justify-end gap-4 w-full">
                         {transcript && (
+<<<<<<< Updated upstream
                             <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right text-wrap overflow-hidde max-w-full">
                                 <div className="truncate">{transcript}</div>
+=======
+                            <div className="bg-[#cfb8cf] text-white px-6 py-3 rounded-full border-2 border-white shadow-md text-right  overflow-hidden">
+                                <div className="truncate lg:text-sm 3xl:text-[4px]">{transcript}</div>
+>>>>>>> Stashed changes
                             </div>
                         )}
                         <div className="flex flex-col items-center gap-1">
