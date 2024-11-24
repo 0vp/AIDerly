@@ -31,11 +31,13 @@ export default function Home() {
         weather_summary: ["It's sunny today", "Expect rain in the evening"]
     });
     const [interactive, setInteractive] = useState(false); // State for interactive mode
+    const [interactiveColour, setInteractiveColour] = useState('#cfb8cf'); // State for interactive button colour
     // subtitles
     const [transcript, setTranscript] = useState("");
     const [subtitles, setSubtitles] = useState("");
     const handleInteractive = () => {
         setInteractive(!interactive);
+        setInteractiveColour(interactive ? '#cfb8cf' : '#603f20');
     };
     const fetchData = async () => {
         try {
@@ -129,33 +131,10 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* <Speech toSay={"hi darling"} setDecibel={setDecibel} />
-            <div>
-                {decibel.toFixed(2)} dB
-            </div> */}
             <div className="absolute top-12 left-24">
-
-                {/* <button
-                    onClick={handleSlidePopup1}
-                    className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                        >
-                    Toggle Slide Pop-Up 1
-                </button>
-                <button
-                    onClick={handleSlidePopup2}
-                    className="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-                        >
-                    Toggle Slide Pop-Up 2
-                </button>
-                <button
-                    onClick={handleSlidePopup3}
-                    className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-                        >
-                    Toggle Slide Pop-Up 3
-                </button> */}
                 <div
                     className={`absolute flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible1 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
                             }`}
                         >
                     <NotesApp clothing_note={list.clothing_note} />
@@ -163,7 +142,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-32 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible2 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible2 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
                             }`}
                         >
                     <Advice recommended_activities={list.recommended_activities} />
@@ -171,7 +150,7 @@ export default function Home() {
 
                 <div
                     className={`absolute top-48 flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
-                            isSlideVisible3 ? "translate-x-0" : "-translate-x-[750px]"
+                            isSlideVisible3 ? "translate-x-0 bg-lightblue" : "-translate-x-[750px]"
                             }`}
                         >
                     <SafetyTips safety_tips={list.safety_tips} />
@@ -179,7 +158,14 @@ export default function Home() {
             </div>
 
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} handleSlidePopup1={handleSlidePopup1} handleSlidePopup2={handleSlidePopup2} handleSlidePopup3={handleSlidePopup3} />
-            <button onClick={handleInteractive} className=" bg-[#cfb8cf] text-white hover:opacity-[80%] a rounded-2xl p-2 absolute right-2 bottom-2">Interactive</button>
+            <button
+                onClick={handleInteractive}
+                style={{ backgroundColor: interactive ? '#add8e6' : '#cfb8cf' }}
+                className="text-white hover:opacity-80 rounded-2xl p-2 absolute right-2 bottom-2"
+            >
+                Interactive
+            </button>
+
             {interactive && <div className='w-1/4 h-fit absolute top-9 right-5'>
                 <Camera />
             </div>

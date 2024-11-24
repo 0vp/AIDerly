@@ -58,7 +58,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 Actions.handleMedicine();
                 reply = "Here is your medicine information";
             }else if (transcript.includes("safety tip")) {
-                handleSlidePopup2();
+                handleSlidePopup3();
                 reply = "Here are the safety tips";
 
             }else if (transcript.includes("clothing")) {
@@ -66,7 +66,7 @@ const Listen = ({ setDecibel, setTranscript, setSubtitles, handleSlidePopup1, ha
                 reply = "Here is the clothing note";
 
             }else if (transcript.includes("activities")) {
-                handleSlidePopup3();
+                handleSlidePopup2();
                 reply = "Here are the recommended activities";
 
             } else if (transcript.includes("news")) {
