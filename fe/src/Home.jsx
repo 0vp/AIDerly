@@ -128,7 +128,7 @@ export default function Home() {
             </div> */}
             <div className="absolute top-12 left-24">
 
-                <button
+                {/* <button
                     onClick={handleSlidePopup1}
                     className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
                         >
@@ -145,7 +145,7 @@ export default function Home() {
                     className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
                         >
                     Toggle Slide Pop-Up 3
-                </button>
+                </button> */}
                 <div
                     className={`absolute flex w-[700px] items-center justify-center transition-transform duration-500 ease-in-out ${
                             isSlideVisible1 ? "translate-x-0" : "-translate-x-[750px]"
