@@ -1,11 +1,13 @@
 import requests
 from datetime import datetime
 from openai import OpenAI
+import requests as req
 import json
 from dotenv import load_dotenv
 import os
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 class WeatherAdvisor:
     def __init__(self):
         self.TOMORROW_API_KEY = os.getenv("TOMORROW_API_KEY")
@@ -16,7 +18,7 @@ class WeatherAdvisor:
 
         # Base URL for Tomorrow.io API
         self.TOMORROW_BASE_URL = "https://api.tomorrow.io/v4/weather/realtime"
-
+    
     def get_weather_data(self):
         """Fetch current weather data for Montreal"""
         try:
