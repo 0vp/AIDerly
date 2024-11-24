@@ -8,6 +8,7 @@ import SafetyTips from "./components/Tips";
 import 'reactjs-popup/dist/index.css';
 import Schedule from './components/schedule';
 import Listen from "./utils/Listen";
+import Camera from "./components/Camera";
 
 export default function Home() {
     const [decibel, setDecibel] = useState(0);
@@ -171,6 +172,7 @@ export default function Home() {
                     <SafetyTips safety_tips={list.safety_tips} />
                 </div>
             </div>
+
             <Listen setDecibel={setDecibel} setTranscript={setTranscript} setSubtitles={setSubtitles} />
         </>
     );
